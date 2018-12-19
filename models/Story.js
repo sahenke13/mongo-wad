@@ -9,6 +9,6 @@ const storySchema = new Schema({
 
 })
 
-const Story = mongoose.model("Story", drinkSchema);
+const Story = mongoose.model("Story", storySchema);
 
 module.exports = Story;
