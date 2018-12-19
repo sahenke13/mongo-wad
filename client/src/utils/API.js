@@ -1,21 +1,15 @@
 import axios from "axios";
-const BASEURL = "https://www.googleapis.com/books/v1/volumes?q="
-const APIKEY = process.env.MY_API_KEY
-
-
 
 
 export default {
-    search: function(query){
-        return axios.get(BASEURL + query);
+ 
+    getStories: function() {
+        return axios.get("/api/story");
     },
-    getBooks: function() {
-        return axios.get("/api/books");
+    deleteStory: function(id) {
+        return axios.delete("/api/story/" + id);
     },
-    deleteBook: function(id) {
-        return axios.delete("/api/books/" + id);
-    },
-    saveBook: function(bookData){
-        return axios.post("/api/books", bookData)
+    saveStory: function(storyData){
+        return axios.post("/api/story", storyData)
     }
-};
+}

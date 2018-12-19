@@ -1,8 +1,10 @@
 import React from "react";
-import MainPage from "./pages/MainPage"
 
 
 
-const App = () => <MainPage/>;
 
+const App = () => {
+
+return null;
+}
 export default App;
