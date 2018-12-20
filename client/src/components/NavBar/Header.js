@@ -1,8 +1,7 @@
 import React from 'react';
 
- const Header = () => {
+ const Header = () => (
 
-        return (
             <div className="navbar fixed-top navbar-dark bg-primary">
                 <div className="container">
                     <a href="#" className="navbar-brand">Word-Wad</a>
@@ -19,8 +18,8 @@ import React from 'react';
                     </ul>
                 </div>
             </div>
-        )
+        
     
-}
+ )
 
 export default Header;
