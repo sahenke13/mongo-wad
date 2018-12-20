@@ -6,11 +6,15 @@ import MainPage from './pages/MainPage'
 
 
 
-const App = () => {
+const App = () => (
+    
+    <Router>
+        <div>
+            <Switch>
+                <Route exact path = "/" component = {MainPage} />
+            </Switch>
+        </div>
+    </Router>
+);
 
-return (
-    <MainPage />
-
-)
-}
 export default App;
