@@ -1,8 +1,7 @@
 import React from 'react';
 
-class Header extends React.Component {
+ const Header = () => {
 
-    render() {
         return (
             <div className="navbar fixed-top navbar-dark bg-primary">
                 <div className="container">
@@ -21,8 +20,7 @@ class Header extends React.Component {
                 </div>
             </div>
         )
-    }
-
+    
 }
 
 export default Header;
