@@ -6,7 +6,7 @@ const nextEntry = () => (
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">New Entry</h5>
-            </form>
+
               <div class="modal-body">
                 <form>
                   <div class="form-group">
@@ -17,6 +17,7 @@ const nextEntry = () => (
                      <label for="Entry">Entry</label>
                      <textarea class="form-control" id="Entry" rows="3"></textarea>
                   </div>
+                  </form>
              </div>
            <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -24,8 +25,10 @@ const nextEntry = () => (
            </div>
         </div>
      </div>
+     </div>
   </div>
 
 )
 
 export default nextEntry;
+
