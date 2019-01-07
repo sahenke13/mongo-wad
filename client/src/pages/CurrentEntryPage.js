@@ -1,7 +1,12 @@
 import React, { Component } from "react";
+import DisplayEntry from "../components/DisplayedEntry";
 
 export default class CurrentEntryPage extends Component {
   render() {
-    return <div>This is the Current Entry Page</div>;
+    return (
+      <div>
+        <DisplayEntry />
+      </div>
+    );
   }
 }
