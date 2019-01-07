@@ -4,6 +4,7 @@ import MainPage from "./pages/MainPage";
 import BrowseStories from "./pages/BrowseStories";
 import CreateStory from "./pages/CreateStory";
 import CurrentEntryPage from "./pages/CurrentEntryPage";
+import "./App.css";
 
 const App = () => (
   <Router>
