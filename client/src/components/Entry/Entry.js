@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 
 const nextEntry = () => (
@@ -32,3 +33,19 @@ const nextEntry = () => (
 
 export default nextEntry;
 
+=======
+import React, { Component } from "react";
+
+export default class Entry extends Component {
+  render() {
+    return (
+      <div className="container" id="mainEntryBody">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo
+          consectetur quas consequuntur sed eius!
+        </p>
+      </div>
+    );
+  }
+}
+>>>>>>> 9a78593deead001380113b24858163c133f3359a

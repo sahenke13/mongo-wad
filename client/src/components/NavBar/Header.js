@@ -13,12 +13,13 @@ const Header = () => (
           </a>
         </li>
         <li className="nav-item">
-          <a href="/story" className="nav-link text-white">
-            Story
+          <a href="/browseStories" className="nav-link text-white">
+            Browse Stories
           </a>
         </li>
+
         <li className="nav-item">
-          <a href="/create" className="nav-link text-white">
+          <a href="/createStory" className="nav-link text-white">
             Create New Story
           </a>
         </li>

@@ -4,15 +4,16 @@ import MainPage from "./pages/MainPage";
 import BrowseStories from "./pages/BrowseStories";
 import CreateStory from "./pages/CreateStory";
 import CurrentEntryPage from "./pages/CurrentEntryPage";
+import "./App.css";
 
 const App = () => (
   <Router>
     <div>
       <Switch>
         <Route exact path="/" component={MainPage} />
-        <Route exact path="/story" component={BrowseStories} />
-        <Route exact path="/create" component={CreateStory} />
-        <Route exact path="/browse" component={CurrentEntryPage} />
+        <Route exact path="/browseStories" component={BrowseStories} />
+        <Route exact path="/createStory" component={CreateStory} />
+        <Route exact path="/currentEntry" component={CurrentEntryPage} />
       </Switch>
     </div>
   </Router>
