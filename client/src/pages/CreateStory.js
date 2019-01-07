@@ -22,26 +22,34 @@ render() {
         <div className = "row">
             <div className = "col-md-12">
                 <form className="form">
-                {/* Title Entry */}
-                        <input
-                            value = {this.state.title} 
-                            type ="text" 
-                            onChange={this.handleInputChange}
-                            className ="form-control" 
-                            placeholder = "Give your Story a name"
-                            /> 
-                {/* Genre Entry */}
-                        <input 
-                          value= {this.state.genre}
-                          type ="text" 
-                          onChange = {this.handleInputChange}
-                          className ="form-control"
-                          placeholder = "Decide on the genre"
-                          />
-                
-                {/* Root Entry */}
-                        <textarea className ="form-control" id = "rootEntry" rows="10" placeholder = "Start your story here"/>
-                    
+                  {/* Title Entry */}
+                          <input
+                              value = {this.state.title} 
+                              type ="text" 
+                              name="title"
+                              onChange={this.handleInputChange}
+                              className ="form-control" 
+                              placeholder = "Give your Story a name"
+                              /> 
+                  {/* Genre Entry */}
+                          <input 
+                            value= {this.state.genre}
+                            type ="text"
+                            name = "genre" 
+                            onChange = {this.handleInputChange}
+                            className ="form-control"
+                            placeholder = "Decide on the genre"
+                            />
+                  {/* Root Entry */}
+                          <textarea 
+                            value = {this.state.text}
+                            onChange = {this.handleInputChange}
+                            rows = "10"
+                            name="rootEntry"
+                            placeholder = "Start your story here"
+                            />
+                  {/* Submit button */}
+                    <button onClick={this.handleFormSubmit}>Submit</button>
                 </form>
                 
             </div>
