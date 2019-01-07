@@ -7,7 +7,6 @@ import React from 'react';
                     <a href="/" className="navbar-brand">Word-Wad</a>
                     <ul className="navbar nav">
                         <li className="nav-item">
-                        <p></p>
                             <a href="/" className="nav-link text-white">Home</a>
                         </li>
                         <li className="nav-item">
