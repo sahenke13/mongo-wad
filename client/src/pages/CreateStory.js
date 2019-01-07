@@ -14,6 +14,10 @@ export default class CreateStory extends Component {
             [name]: value
         });
     };
+
+    handleFormSubmit = event => {
+      
+    }
     
 
 render() {
