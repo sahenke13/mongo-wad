@@ -31,7 +31,13 @@ render() {
                             placeholder = "Give your Story a name"
                             /> 
                 {/* Genre Entry */}
-                        <input type ="text" className ="form-control" id = "genre" placeholder = "Decide on the genre"/>
+                        <input 
+                          value= {this.state.genre}
+                          type ="text" 
+                          onChange = {this.handleInputChange}
+                          className ="form-control"
+                          placeholder = "Decide on the genre"
+                          />
                 
                 {/* Root Entry */}
                         <textarea className ="form-control" id = "rootEntry" rows="10" placeholder = "Start your story here"/>
