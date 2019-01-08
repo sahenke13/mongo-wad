@@ -6,7 +6,7 @@ const storySchema = new Schema({
         type: String, 
         required: true
         },
-    firstEntryId: Number
+    // firstEntryId: Number
     // userId: {type: Number, required: true}
 
 })
