@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 
+
 export default class CreateStory extends Component {
   
     state = {
         title: "",
         genre: "",
-        text: ""
+        textGuy: ""
     };
     
     handleInputChange = event => {
@@ -15,13 +16,14 @@ export default class CreateStory extends Component {
         });
     };
 
-    handleFormSubmit = event => {
+    handleStorySubmit = event => {
       
     }
     
 
 render() {
     return (
+      
       <div className ="container">
         <div className = "row">
             <div className = "col-md-12">
@@ -45,15 +47,17 @@ render() {
                             placeholder = "Decide on the genre"
                             />
                   {/* Root Entry */}
-                          <textarea 
-                            value = {this.state.text}
+                          <textarea
+                            value = {this.state.textGuy}
+                            type="text"
+                            name="textGuy"
+                            rows="10"
                             onChange = {this.handleInputChange}
-                            rows = "10"
-                            name="rootEntry"
+                            className = "form-control"
                             placeholder = "Start your story here"
                             />
                   {/* Submit button */}
-                    <button onClick={this.handleFormSubmit}>Submit</button>
+                    <button onClick={this.handleStorySubmit}>Submit</button>
                 </form>
                 
             </div>
