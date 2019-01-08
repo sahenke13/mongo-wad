@@ -11,7 +11,7 @@ export default {
     deleteStory: function(id) {
         return axios.delete("/api/story/" + id);
     },
-    saveStory: function(storyData){
+    saveStory: function(storyData) {
         return axios.post("/api/story", storyData)
     },
     updateStory: function(id, storyData){

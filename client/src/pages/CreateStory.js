@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import API from "../utils/API";
 
 
 export default class CreateStory extends Component {
@@ -8,7 +9,7 @@ export default class CreateStory extends Component {
         genre: "",
         textGuy: ""
     };
-    
+  
     handleInputChange = event => {
         const { name, value } = event.target
         this.setState({
@@ -17,7 +18,16 @@ export default class CreateStory extends Component {
     };
 
     handleStorySubmit = event => {
-      
+      event.preventDefault();
+      API.saveStory({
+        title: this.state.title,
+        genre: this.state.genre
+      }) 
+      // then
+        API.getStoryID()
+        // save to state?
+        API.saveEntry
+          // add in a state for rootID or whtaever we're gonna do here. 
     }
     
 
