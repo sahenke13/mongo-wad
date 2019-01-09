@@ -1,14 +1,13 @@
-import React from "react";
-import StoryBody from "../components/StoryBody";
+import React, { Component } from "react";
 
-class StoryPage extends React.Component {
+import StoryList from "../components/StoryList";
+
+export default class BrowseStories extends Component {
   render() {
     return (
       <div>
-        <StoryBody />
+        <StoryList />
       </div>
     );
   }
 }
-
-export default StoryPage;
