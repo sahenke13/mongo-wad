@@ -1,53 +1,42 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import API from "../utils/API";
 
-
 export default class CreateStory extends Component {
-  
-    state = {
-        title: "",
-        genre: "",
-        textGuy: ""
-    };
-  
-    handleInputChange = event => {
-        const { name, value } = event.target
-        this.setState({
-            [name]: value
-        });
-    };
+  state = {
+    title: "",
+    genre: "",
+    textGuy: ""
+  };
 
-    handleStorySubmit = event => {
-      event.preventDefault();
-      API.saveStory({
-        title: this.state.title,
-        genre: this.state.genre
-      }) 
-        // After creating the story, we use the promise to save the newly created StoryId to the State. We Can then use that to save along with Entry text. 
-        .then(dataGuy => {
-            let storyId = dataGuy.data._id
-            API.saveEntry({
-              storyId: storyId,
-              content: this.state.textGuy,
-              previousEntryId: null
-            })
-            .then(data => {
-              
-            })
-            
-          })
-        
-        
-        
-        
-          
-    }
-    
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleStorySubmit = event => {
+    event.preventDefault();
+    API.saveStory({
+      title: this.state.title,
+      genre: this.state.genre
+    })
+      // After creating the story, we use the promise to save the newly created StoryId to the State. We Can then use that to save along with Entry text.
+      .then(dataGuy => {
+        let storyId = dataGuy.data._id;
+        API.saveEntry({
+          storyId: storyId,
+          content: this.state.textGuy,
+          previousEntryId: null
+        }).then(data => {
+          console.log(data);
+        });
+      });
+  };
 
   render() {
     return (
       <div>
-
         <br />
         <div className="container" id="storyform">
           <h1>Let's Create a Story</h1>
