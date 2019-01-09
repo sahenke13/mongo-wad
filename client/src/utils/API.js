@@ -22,10 +22,6 @@ export default {
         return axios.get("/api/story/byuser"+userId)
     },
 
-    getStoryId: function() {
-        return axios.get("/api/story/mostRecent")
-    },
-
     //Entry API routes
     getEntries: function(){
         return axios.get("/api/entry")
