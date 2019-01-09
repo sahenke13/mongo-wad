@@ -6,6 +6,10 @@ const storySchema = new Schema({
         type: String, 
         required: true
         },
+    genre: {
+        type: String,
+        required: true
+    }
     // firstEntryId: Number
     // userId: {type: Number, required: true}
 
