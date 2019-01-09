@@ -26,7 +26,7 @@ export default class CreateStory extends Component {
       // then
         API.getStoryID()
         // save to state?
-        API.saveEntry
+        API.save
           // add in a state for rootID or whtaever we're gonna do here. 
     }
     

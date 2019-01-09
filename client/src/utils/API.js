@@ -15,10 +15,15 @@ export default {
         return axios.post("/api/story", storyData)
     },
     updateStory: function(id, storyData){
-        return axios.put("/api/story/"+id, storyData)
+        return axios.put("/api/story/"+ id, storyData)
     },
+
     getStoryByUser: function(userId){
         return axios.get("/api/story/byuser"+userId)
+    },
+
+    getStoryId: function() {
+        return axios.get("/api/story/mostRecent")
     },
 
     //Entry API routes

@@ -5,6 +5,9 @@ router.route("/")
     .get(storyController.findAll)
     .post(storyController.create);
 
+router.route("/mostRecent")
+    .get(storyController.findRecentId)
+
 router.route("/:id")
     .get(storyController.findById)
     .put(storyController.update)

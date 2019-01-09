@@ -17,6 +17,14 @@ module.exports = {
             })
             .catch(err=> res.status(422).json(err));
     },
+
+    findRecentId: function(req, res) {
+        db.Story
+            .find({
+                
+            }) 
+    },
+
     findByUser: function(req, res) {
         db.Story    
             .find({userId: req.params.userId})
