@@ -7,8 +7,7 @@ export default class CreateStory extends Component {
     state = {
         title: "",
         genre: "",
-        textGuy: "",
-        storyId: ""
+        textGuy: ""
     };
   
     handleInputChange = event => {
@@ -20,16 +19,22 @@ export default class CreateStory extends Component {
 
     handleStorySubmit = event => {
       event.preventDefault();
-      console.log(this.state)
       API.saveStory({
         title: this.state.title,
         genre: this.state.genre
       }) 
         // After creating the story, we use the promise to save the newly created StoryId to the State. We Can then use that to save along with Entry text. 
-        .then(data => {
-          this.setState({
-            storyId: data._id
-          })
+        .then(dataGuy => {
+            let storyId = dataGuy.data._id
+            API.saveEntry({
+              storyId: storyId,
+              content: this.state.textGuy,
+              previousEntryId: null
+            })
+            .then(data => {
+              
+            })
+            
           })
         
         

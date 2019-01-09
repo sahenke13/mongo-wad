@@ -33,7 +33,7 @@ export default {
         return axios.put("/api/entry/"+id, entryData)
     },
     saveEntry: function(entryData){
-        return axios.post("/api/entry/", entryData)
+        return axios.post("/api/entry", entryData)
     },
     getEntryByUser: function(userId){
         return axios.get("/api/entry/byuser/" + userId);
