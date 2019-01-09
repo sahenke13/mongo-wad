@@ -1,4 +1,5 @@
-#storyBody{
+#storyBody {
     position: relative;
     padding-top: 10%;
+    border: .5rem solid black;
 }
