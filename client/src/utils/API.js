@@ -11,12 +11,13 @@ export default {
     deleteStory: function(id) {
         return axios.delete("/api/story/" + id);
     },
-    saveStory: function(storyData){
+    saveStory: function(storyData) {
         return axios.post("/api/story", storyData)
     },
     updateStory: function(id, storyData){
-        return axios.put("/api/story/"+id, storyData)
+        return axios.put("/api/story/"+ id, storyData)
     },
+
     getStoryByUser: function(userId){
         return axios.get("/api/story/byuser"+userId)
     },
@@ -32,7 +33,7 @@ export default {
         return axios.put("/api/entry/"+id, entryData)
     },
     saveEntry: function(entryData){
-        return axios.post("/api/entry/", entryData)
+        return axios.post("/api/entry", entryData)
     },
     getEntryByUser: function(userId){
         return axios.get("/api/entry/byuser/" + userId);

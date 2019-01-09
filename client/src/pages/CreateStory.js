@@ -1,35 +1,53 @@
-import React, { Component } from "react";
-import Navbar from "../components/NavBar";
+import React, { Component } from 'react';
+import API from "../utils/API";
+
 
 export default class CreateStory extends Component {
-  state = {
-    title: "",
-    genre: "",
-    textGuy: ""
-  };
-
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
-
-  //Need to get the Story Stuff to connect to database.  NewItem is logging to console.
-  handleStorySubmit = e => {
-    e.preventDefault();
-    const newItem = {
-      title: this.state.title,
-      genre: this.state.genre,
-      textGuy: this.state.textGuy
+  
+    state = {
+        title: "",
+        genre: "",
+        textGuy: ""
     };
-    console.log("NewItem is: ", newItem);
-  };
+  
+    handleInputChange = event => {
+        const { name, value } = event.target
+        this.setState({
+            [name]: value
+        });
+    };
+
+    handleStorySubmit = event => {
+      event.preventDefault();
+      API.saveStory({
+        title: this.state.title,
+        genre: this.state.genre
+      }) 
+        // After creating the story, we use the promise to save the newly created StoryId to the State. We Can then use that to save along with Entry text. 
+        .then(dataGuy => {
+            let storyId = dataGuy.data._id
+            API.saveEntry({
+              storyId: storyId,
+              content: this.state.textGuy,
+              previousEntryId: null
+            })
+            .then(data => {
+              
+            })
+            
+          })
+        
+        
+        
+        
+          
+    }
+    
 
   render() {
     return (
       <div>
-        <Navbar />
+
         <br />
         <div className="container" id="storyform">
           <h1>Let's Create a Story</h1>
