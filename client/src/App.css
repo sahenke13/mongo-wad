@@ -2,5 +2,21 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background: grey;
+    position: relative;
+}
+
+#storyform {
+    position: relative;
+    margin-top: 5rem;
+
+}
+
+#storybody {
+    position: relative;
+    margin-top: 5rem;
+
+}
+
+.spacing {
+    margin: 2rem;
 }

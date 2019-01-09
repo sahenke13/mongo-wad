@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { Component } from 'react';
 import API from "../utils/API";
 
@@ -30,49 +31,81 @@ export default class CreateStory extends Component {
           // add in a state for rootID or whtaever we're gonna do here. 
     }
     
+=======
+import React, { Component } from "react";
+import Navbar from "../components/NavBar";
 
-render() {
+export default class CreateStory extends Component {
+  state = {
+    title: "",
+    genre: "",
+    textGuy: ""
+  };
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  //Need to get the Story Stuff to connect to database.  NewItem is logging to console.
+  handleStorySubmit = e => {
+    e.preventDefault();
+    const newItem = {
+      title: this.state.title,
+      genre: this.state.genre,
+      textGuy: this.state.textGuy
+    };
+    console.log("NewItem is: ", newItem);
+  };
+>>>>>>> master
+
+  render() {
     return (
-      
-      <div className ="container">
-        <div className = "row">
-            <div className = "col-md-12">
-                <form className="form">
-                  {/* Title Entry */}
-                          <input
-                              value = {this.state.title} 
-                              type ="text" 
-                              name="title"
-                              onChange={this.handleInputChange}
-                              className ="form-control" 
-                              placeholder = "Give your Story a name"
-                              /> 
-                  {/* Genre Entry */}
-                          <input 
-                            value= {this.state.genre}
-                            type ="text"
-                            name = "genre" 
-                            onChange = {this.handleInputChange}
-                            className ="form-control"
-                            placeholder = "Decide on the genre"
-                            />
-                  {/* Root Entry */}
-                          <textarea
-                            value = {this.state.textGuy}
-                            type="text"
-                            name="textGuy"
-                            rows="10"
-                            onChange = {this.handleInputChange}
-                            className = "form-control"
-                            placeholder = "Start your story here"
-                            />
-                  {/* Submit button */}
-                    <button onClick={this.handleStorySubmit}>Submit</button>
-                </form>
-                
+      <div>
+        <Navbar />
+        <br />
+        <div className="container" id="storyform">
+          <h1>Let's Create a Story</h1>
+          <div className="row">
+            <div className="col-md-12">
+              <form className="form">
+                {/* Title Entry */}
+                <input
+                  value={this.state.title}
+                  type="text"
+                  name="title"
+                  onChange={this.handleInputChange}
+                  className="form-control spacing"
+                  placeholder="Give your Story a name"
+                />
+                {/* Genre Entry */}
+                <input
+                  value={this.state.genre}
+                  type="text"
+                  name="genre"
+                  onChange={this.handleInputChange}
+                  className="form-control spacing"
+                  placeholder="Decide on the genre"
+                />
+                {/* Root Entry */}
+                <textarea
+                  value={this.state.textGuy}
+                  type="text"
+                  name="textGuy"
+                  rows="10"
+                  onChange={this.handleInputChange}
+                  className="form-control spacing"
+                  placeholder="Start your story here"
+                />
+                {/* Submit button */}
+                <button onClick={this.handleStorySubmit}>Submit</button>
+              </form>
             </div>
+          </div>
         </div>
       </div>
-    )
+    );
   }
 }

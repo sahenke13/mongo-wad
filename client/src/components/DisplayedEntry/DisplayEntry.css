@@ -1,5 +1,28 @@
-#displayedEntry {
+#currentEntry {
     position: relative;
-    padding-top: 10%;
-    color: green;
+    top: 10rem;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    justify-content: center;
+    border: 1rem solid blue;
+}
+
+#nextEntries {
+    position: relative;
+    top: 30rem;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+    border: 1rem solid blue;
+
+
+}
+
+button {
+    position: fixed;
+    bottom: 2rem;
+    margin: auto;
+
+
 }
