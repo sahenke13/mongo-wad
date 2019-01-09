@@ -4,48 +4,48 @@ const nextEntry = () => (
   <div>
     <button
       type="button"
-      class="btn btn-primary"
+      className="btn btn-primary"
       data-toggle="modal"
       data-target="#entryModal"
     >
       Launch demo modal
     </button>
     <div
-      class="modal fade"
+      className="modal fade"
       id="entryModal"
-      tabindex="-1"
+      tabIndex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
+      <div className="modal-dialog" role="document">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalLabel">
               New Entry
             </h5>
 
-            <div class="modal-body">
+            <div className="modal-body">
               <form>
-                <div class="form-group">
-                  <label for="Title">Title</label>
-                  <textarea class="form-control" id="Title" rows="1" />
+                <div className="form-group">
+                  <label htmlFor="Title">Title</label>
+                  <textarea className="form-control" id="Title" rows="1" />
                 </div>
-                <div class="form-group">
-                  <label for="Entry">Entry</label>
-                  <textarea class="form-control" id="Entry" rows="3" />
+                <div className="form-group">
+                  <label htmlFor="Entry">Entry</label>
+                  <textarea className="form-control" id="Entry" rows="3" />
                 </div>
               </form>
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 data-dismiss="modal"
               >
                 Close
               </button>
-              <button type="submit" class="btn btn-primary">
+              <button type="submit" className="btn btn-primary">
                 Submit
               </button>
             </div>

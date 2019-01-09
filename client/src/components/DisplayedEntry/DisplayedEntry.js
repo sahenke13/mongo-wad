@@ -18,7 +18,7 @@ export default class DisplayedEntry extends Component {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit,
           minima?
         </div>
-        <button type="button" class="btn btn-success">
+        <button type="button" className="btn btn-success">
           Create New Entry
         </button>
         <NextEntry />
