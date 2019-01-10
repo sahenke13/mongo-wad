@@ -22,9 +22,6 @@ export default class StoryList extends Component {
   };
 
   render() {
-    console.log(this.state);
-    console.log("this.state.stories : ", this.state.stories);
-
     return (
       <div className="container" id="story">
         <h4>This is the Story List component</h4>
@@ -33,12 +30,14 @@ export default class StoryList extends Component {
           {this.state.stories.length ? (
             this.state.stories.map(story => {
               return (
-                <Story
-                  key={story._id}
-                  title={story.title}
-                  id={story._id}
-                  genre={story.genre}
-                />
+                <a href="/currentEntry" id={story._id}>
+                  <Story
+                    key={story._id}
+                    title={story.title}
+                    id={story._id}
+                    genre={story.genre}
+                  />
+                </a>
               );
             })
           ) : (

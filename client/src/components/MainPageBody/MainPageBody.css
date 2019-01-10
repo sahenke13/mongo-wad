@@ -1,4 +1,13 @@
-#mainPageBody{
+/* #mainPageBody {
     position: relative;
     padding-top: 10%;
+    border: .5rem solid black;
+} */
+
+#mainPageBody {
+    position: relative;
+    margin: 20rem auto;
+    text-align: center;
+
+    padding: 2rem;
 }
