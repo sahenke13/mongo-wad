@@ -9,7 +9,7 @@ const entrySchema = new Schema({
         required: true
     },
     previousEntryId: String,
-    // nextEntryArray: Array
+    nextEntryArray: Array
 
 });
 
