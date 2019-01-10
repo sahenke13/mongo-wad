@@ -18,7 +18,9 @@ app.use(routes);
 
 require("dotenv").load();
 
-mongoose.connect(process.env.MONGODB_URI || process.env.LOCAL_MONGO_URI);// Send every other request to the React app
+mongoose.connect(process.env.MONGODB_URI || process.env.LOCAL_MONGO_URI, {useNewUrlParser: true});
+
+// Send every other request to the React app
 // Define any API routes before this runs
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
