@@ -27,12 +27,13 @@ export default class DisplayedEntry extends Component {
     
     API.displayRootEntry(id)
       .then(res => {
-        console.log("this is the entry we grabbed", res.data)
         this.setState({
           currentEntry: res.data
         }, () => {
-          console.log("this is the currentEntry state", this.state.currentEntry)
+          console.log("this is the currentEntry state", JSON.stringify(this.state.currentEntry))
         })
+        console.log("this is also the current entry state....", this.state.currentEntry)
+        console.log(this.state)
       })
   };
 
