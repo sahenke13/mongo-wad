@@ -6,8 +6,17 @@
 
 #mainPageBody {
     position: relative;
-    margin: 20rem auto;
+    top: 15rem;
+    width: 75%;
+    background: grey;
     text-align: center;
+    margin: auto;
+}
 
-    padding: 2rem;
+
+
+#mainWordWadLogo {
+    width: auto;
+    height: auto;
+    object-fit: cover;
 }

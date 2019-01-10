@@ -25,9 +25,7 @@ export default class StoryList extends Component {
   render() {
     return (
       <div className="container" id="story">
-        <h4>This is the Story List component</h4>
         <div className="storyContainer">
-          story container here
           {this.state.stories.length ? (
             this.state.stories.map(story => {
               return (
