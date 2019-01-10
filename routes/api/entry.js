@@ -7,8 +7,10 @@ router
   .post(entryController.create);
 
 router
+  .route("/root/:storyId")
+  .get(entryController.findRootEntry)
+router
   .route("/:id")
-  .get(entryController.findById)
   .put(entryController.update)
   .delete(entryController.remove);
 

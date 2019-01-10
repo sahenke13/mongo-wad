@@ -19,7 +19,7 @@ export default class StoryList extends Component {
         this.setState({ stories: res.data });
         console.log(res.data);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log("getStories error", err));
   };
 
   render() {

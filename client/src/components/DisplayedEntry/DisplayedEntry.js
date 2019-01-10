@@ -5,21 +5,35 @@ import API from "../../utils/API";
 
 export default class DisplayedEntry extends Component {
   state = {
-    storyInfo: [],
-    currentEntry: 0,
-    NextEntry: null
+    storyInfo: "",
+    currentEntry: [],
+    nextEntry: ""
   };
 
   componentDidMount = () => {
     this.findStory(this.props.id);
   };
+  
   findStory = id => {
-    API.getStory(id).then(res => {
-      this.setState({ storyInfo: res.data }, () => {
-        console.log(this.state.storyInfo);
+    API.getStory(id)
+      .then(res => {
+        this.setState({ 
+          storyInfo: res.data 
+        }, () => {
+          console.log("this is the storyInfo state", this.state.storyInfo);
       });
-      console.log(res.data);
-    });
+    })
+      .catch(err => console.log("this is an error", err))
+    
+    API.displayRootEntry(id)
+      .then(res => {
+        this.setState({
+          currentEntry: res.data
+        }, () => {
+          console.log("this is the currentEntry state", this.state.currentEntry)
+        })
+        
+      })
   };
 
   render() {
@@ -29,10 +43,12 @@ export default class DisplayedEntry extends Component {
           <h3>{this.state.storyInfo.title}</h3>
           id: {this.props.id}
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-            adipisci maxime tempora reprehenderit amet veniam a esse vero
-            maiores ipsa modi, impedit aperiam earum dolore doloremque neque
-            expedita delectus magnam?
+            {this.state.currentEntry.map(entry => {
+              return (
+                entry.content
+              )
+            })}
+            
           </p>
         </div>
         <div className="container" id="nextEntries">

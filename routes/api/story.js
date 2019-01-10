@@ -12,6 +12,8 @@ router
   .put(storyController.update)
   .delete(storyController.remove);
 
-router.route("/byuser/:userId").get(storyController.findByUser);
+router
+  .route("/byuser/:userId")
+  .get(storyController.findByUser);
 
 module.exports = router;
