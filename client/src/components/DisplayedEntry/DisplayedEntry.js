@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import "./DisplayEntry.css";
-import NextEntry from "../Entry";
+import NewEntryModal from "../NewEntry";
 import API from "../../utils/API";
 
 export default class DisplayedEntry extends Component {
   state = {
     storyInfo: "",
     currentEntry: [],
-    nextEntry: ""
+    nextEntryArray: ""
   };
 
   componentDidMount = () => {
@@ -55,10 +55,9 @@ export default class DisplayedEntry extends Component {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit,
           minima?
         </div>
-        <button type="button" className="btn btn-success">
-          Create New Entry
-        </button>
-        <NextEntry />
+         
+        <NewEntryModal />
+
       </div>
     );
   }

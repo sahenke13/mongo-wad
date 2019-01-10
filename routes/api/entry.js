@@ -9,11 +9,14 @@ router
 router
   .route("/root/:storyId")
   .get(entryController.findRootEntry)
+
 router
   .route("/:id")
   .put(entryController.update)
   .delete(entryController.remove);
 
-router.route("/byuser/:userId").get(entryController.findByUser);
+router
+  .route("/byuser/:userId")
+  .get(entryController.findByUser);
 
 module.exports = router;

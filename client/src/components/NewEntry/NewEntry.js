@@ -2,7 +2,7 @@ import React from "react";
 
 //this is the modal component for creating new entries.
 
-const nextEntry = () => (
+const newEntry = () => (
   <div>
     <button
       type="button"
@@ -58,4 +58,4 @@ const nextEntry = () => (
   </div>
 );
 
-export default nextEntry;
+export default newEntry;
