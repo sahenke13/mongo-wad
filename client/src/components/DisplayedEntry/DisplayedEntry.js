@@ -5,7 +5,7 @@ import API from "../../utils/API";
 
 export default class DisplayedEntry extends Component {
   state = {
-    storyInfo: [],
+    storyInfo: "",
     currentEntry: [],
     nextEntry: ""
   };
@@ -30,9 +30,9 @@ export default class DisplayedEntry extends Component {
         this.setState({
           currentEntry: res.data
         }, () => {
-          console.log("this is the currentEntry state", JSON.stringify(this.state.currentEntry))
+          console.log("this is the currentEntry state", JSON.stringify(this.state.currentEntry[0].content))
         })
-        console.log("this is also the current entry state....", this.state.currentEntry)
+        console.log("this is also the current entry state....", this.state.currentEntry[0].content)
         console.log(this.state)
       })
   };
@@ -44,7 +44,11 @@ export default class DisplayedEntry extends Component {
           <h3>{this.state.storyInfo.title}</h3>
           id: {this.props.id}
           <p>
-            {/* {this.state.currentEntry} */}
+            {this.state.currentEntry.map(entry => {
+              return (
+                entry.content
+              )
+            })}
             
           </p>
         </div>
