@@ -9,9 +9,11 @@ const Story = ({ title, id, genre }) => {
   console.log("genre is: ", genre);
 
   return (
-    <div className="container" id="storyBody">
-      <h4>Title: {title}</h4>
-      <h3>genre: {genre}</h3>
+    <div className="card" id="storyBody">
+      <div className="card-boby">
+        <h4 className="card-title">{title}</h4>
+        <h6>genre: {genre}</h6>
+      </div>
     </div>
   );
 };
