@@ -1,5 +1,7 @@
 import React from "react";
 
+//this is the modal component for creating new entries.
+
 const nextEntry = () => (
   <div>
     <button
@@ -8,7 +10,7 @@ const nextEntry = () => (
       data-toggle="modal"
       data-target="#entryModal"
     >
-      Launch demo modal
+      Create New Entry
     </button>
     <div
       className="modal fade"

@@ -1,7 +1,9 @@
 import React from "react";
 import "./Story.css";
 
-const StoryBody = ({ title, id, genre }) => {
+// This is the story component that displays on StoryList
+
+const Story = ({ title, id, genre }) => {
   console.log("title :", title);
   console.log("id", id);
   console.log("genre is: ", genre);
@@ -14,4 +16,4 @@ const StoryBody = ({ title, id, genre }) => {
   );
 };
 
-export default StoryBody;
+export default Story;
