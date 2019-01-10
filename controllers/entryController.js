@@ -26,6 +26,16 @@ module.exports = {
             })
             .catch(err => res.status(422).json(err));
     },
+
+    findRootEntry: function(req, res) {
+        db.Entry
+            .find({storyId: req.params.storyId})
+            .then(dbModel => {
+                res.json(dbModel);
+            })
+            .catch(err => res.status(422).json(err))
+    },
+
     findById: function(req, res) {
         db.Entry
             .findById(req.params.id)

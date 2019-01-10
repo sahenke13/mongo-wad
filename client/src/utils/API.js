@@ -26,6 +26,12 @@ export default {
   getEntries: function() {
     return axios.get("/api/entry");
   },
+  displayRootEntry: function(storyId) {
+    return axios.get("/api/entry/root/" + storyId)
+  },
+  displayEntry: function(entryId) {
+
+  },
   deleteEntry: function(id) {
     return axios.delete("/api/entry/" + id);
   },
