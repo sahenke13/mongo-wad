@@ -1,5 +1,8 @@
 #storyBody {
     position: relative;
-    padding-top: 10%;
+    padding: 1rem;
+    margin: 1.5rem;
     border: .5rem solid black;
+    cursor: pointer;
+
 }
