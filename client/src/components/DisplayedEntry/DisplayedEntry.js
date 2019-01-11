@@ -50,9 +50,21 @@ export default class DisplayedEntry extends Component {
       storyId: null,
       content: this.state.newEntryContent,
       previousEntryId: this.state.currentEntry[0]._id
-    }).then(data => {
-      console.log(data);
-    });
+    }).then(res => {
+        console.log("new entry data", res.data);
+        let prevId = res.data.previousEntryId
+        let currentId = res.data._id
+        
+        API.updateEntry(prevId, {
+          idToPush: currentId
+        })
+        .then(res => {
+          console.log("updated entry data", res)
+        })
+    })
+      .catch(err => console.log("this is an error", err))
+    // pass thru previousEntryId as the one we're searching for here 
+    
   }
 
 
