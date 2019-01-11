@@ -27,10 +27,10 @@ export default {
     return axios.get("/api/entry");
   },
   displayRootEntry: function(storyId) {
-    return axios.get("/api/entry/root/" + storyId)
+    return axios.get("/api/entry/root/" + storyId);
   },
   displayEntry: function(entryId) {
-
+    return axios.get("/api/entry/" + entryId);
   },
   deleteEntry: function(id) {
     return axios.delete("/api/entry/" + id);

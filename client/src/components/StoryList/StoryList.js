@@ -28,14 +28,10 @@ export default class StoryList extends Component {
         <div className="storyContainer">
           {this.state.stories.length ? (
             this.state.stories.map(story => {
+              const { _id, title, genre } = story;
               return (
-                <Link to={`/currentEntry/${story._id}`} key={story._id}>
-                  <Story
-                    key={story._id}
-                    title={story.title}
-                    id={story._id}
-                    genre={story.genre}
-                  />
+                <Link to={`/currentEntry/${_id}`} key={_id}>
+                  <Story key={_id} title={title} id={_id} genre={genre} />
                 </Link>
               );
             })
