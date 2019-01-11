@@ -46,7 +46,13 @@ export default class DisplayedEntry extends Component {
   };
 
   newEntry = () => {
-
+    API.saveEntry({
+      storyId: null,
+      content: this.state.newEntryContent,
+      previousEntryId: this.state.currentEntry[0]._id
+    }).then(data => {
+      console.log(data);
+    });
   }
 
 
