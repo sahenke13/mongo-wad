@@ -7,11 +7,20 @@ export default class DisplayedEntry extends Component {
   state = {
     storyInfo: "",
     currentEntry: [],
-    nextEntryArray: ""
+    nextEntryArray: [],
+    previousEntryId: "",
+    newEntryContent: ""
   };
 
   componentDidMount = () => {
     this.findStory(this.props.id);
+  };
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
   };
   
   findStory = id => {
@@ -36,6 +45,13 @@ export default class DisplayedEntry extends Component {
       })
   };
 
+  newEntry = () => {
+
+  }
+
+
+
+
   render() {
     return (
       <div className="container">
@@ -56,7 +72,11 @@ export default class DisplayedEntry extends Component {
           minima?
         </div>
          
-        <NewEntryModal />
+        <NewEntryModal 
+          newEntryContent={this.state.newEntryContent}
+          handleInputChange={this.handleInputChange}
+          newEntry={this.newEntry}
+        />
 
       </div>
     );
