@@ -51,6 +51,7 @@ export default class DisplayedEntry extends Component {
       content: this.state.newEntryContent,
       previousEntryId: this.state.currentEntry[0]._id
     }).then(res => {
+        
         console.log("new entry data", res.data);
         let prevId = res.data.previousEntryId
         let currentId = res.data._id
