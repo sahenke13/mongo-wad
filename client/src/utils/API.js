@@ -35,7 +35,7 @@ export default {
   deleteEntry: function(id) {
     return axios.delete("/api/entry/" + id);
   },
-  upDateEntry: function(id, entryData) {
+  updateEntry: function(id, entryData) {
     return axios.put("/api/entry/" + id, entryData);
   },
   saveEntry: function(entryData) {

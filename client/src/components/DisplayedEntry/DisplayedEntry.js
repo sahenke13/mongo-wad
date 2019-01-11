@@ -1,17 +1,26 @@
 import React, { Component } from "react";
 import "./DisplayEntry.css";
-import NextEntry from "../Entry";
+import NewEntryModal from "../NewEntry";
 import API from "../../utils/API";
 
 export default class DisplayedEntry extends Component {
   state = {
     storyInfo: "",
     currentEntry: [],
-    nextEntry: ""
+    nextEntryArray: [],
+    previousEntryId: "",
+    newEntryContent: ""
   };
 
   componentDidMount = () => {
     this.findStory(this.props.id);
+  };
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
   };
   
   findStory = id => {
@@ -36,6 +45,32 @@ export default class DisplayedEntry extends Component {
       })
   };
 
+  newEntry = () => {
+    API.saveEntry({
+      storyId: null,
+      content: this.state.newEntryContent,
+      previousEntryId: this.state.currentEntry[0]._id
+    }).then(res => {
+        
+        console.log("new entry data", res.data);
+        let prevId = res.data.previousEntryId
+        let currentId = res.data._id
+        
+        API.updateEntry(prevId, {
+          idToPush: currentId
+        })
+        .then(res => {
+          console.log("updated entry data", res)
+        })
+    })
+      .catch(err => console.log("this is an error", err))
+    // pass thru previousEntryId as the one we're searching for here 
+    
+  }
+
+
+
+
   render() {
     return (
       <div className="container">
@@ -55,10 +90,13 @@ export default class DisplayedEntry extends Component {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit,
           minima?
         </div>
-        <button type="button" className="btn btn-success">
-          Create New Entry
-        </button>
-        <NextEntry />
+         
+        <NewEntryModal 
+          newEntryContent={this.state.newEntryContent}
+          handleInputChange={this.handleInputChange}
+          newEntry={this.newEntry}
+        />
+
       </div>
     );
   }

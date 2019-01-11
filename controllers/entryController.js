@@ -44,9 +44,15 @@ module.exports = {
     },
     update: function(req, res){
         db.Entry
-            .findOneAndUpdate({_id: req.params.id}, req.body)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
+            .updateOne(
+                {_id: req.params.id}, 
+                { $push: {nextEntryArray: req.body.idToPush}}, 
+                function(err, raw) {
+                if (err) return handleError(err);
+                console.log("The raw response from Mongo was", raw)
+                console.log(req.body)
+            })
+            
     },
     remove: function(req, res){
         db.Entry
