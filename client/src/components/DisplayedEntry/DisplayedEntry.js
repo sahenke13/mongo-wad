@@ -43,7 +43,7 @@ export default class DisplayedEntry extends Component {
       
         this.setState(
           {
-          currentEntry: res.data,
+          currentEntry: res.data[0],
           nextEntryArray: res.data[0].nextEntryArray
           },
           () => {
@@ -62,15 +62,15 @@ export default class DisplayedEntry extends Component {
 
   newEntrySubmit = () => {
     API.saveEntry({
-      storyId: this.state.storyInfo._id,
+      storyId: null,
       content: this.state.newEntryContent,
-      previousEntryId: this.state.currentEntry[0]._id
+      previousEntryId: this.state.currentEntry._id
     })
       .then(res => {
         console.log("new entry data", res.data);
-        // this.setState({
-        //   currentEntry: res
-        // })
+        this.setState({
+          currentEntry: res.data
+        })
         let prevId = res.data.previousEntryId;
         let currentId = res.data._id;
         API.updateEntry(prevId, {
@@ -92,16 +92,21 @@ export default class DisplayedEntry extends Component {
         <div className="container" id="currentEntry">
           <h3>{this.state.storyInfo.title}</h3>
           id: {this.props.id}
-          {/* <p>{this.state.currentEntry}</p> */}
         </div>
 
+
+        {/* 
         {this.state.currentEntry.map(entry => {
           return (
             <div key={entry._id} className="container" id="nextEntries">
               {entry.content}
             </div>
           );
-        })}
+        })} */}
+
+        <div key={this.state.currentEntry._id} className="container" id="nextEntries">
+               {this.state.currentEntry.content}
+        </div>
 
         <NewEntryModal
           newEntryContent={this.state.newEntryContent}
