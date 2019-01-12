@@ -5,7 +5,7 @@ import API from "../../utils/API";
 
 export default class DisplayedEntry extends Component {
   state = {
-    storyInfo: "",
+    storyInfo: [],
     currentEntry: [],
     nextEntryArray: [],
     previousEntryId: "",
@@ -22,54 +22,64 @@ export default class DisplayedEntry extends Component {
       [name]: value
     });
   };
-  
+
   findStory = id => {
     API.getStory(id)
       .then(res => {
-        this.setState({ 
-          storyInfo: res.data 
-        }, () => {
-          console.log("this is the storyInfo state", this.state.storyInfo);
-      });
-    })
-      .catch(err => console.log("this is an error", err))
-    
-    API.displayRootEntry(id)
-      .then(res => {
-        this.setState({
-          currentEntry: res.data
-        }, () => {
-          console.log("this is the currentEntry state", this.state.currentEntry)
-        })
-        
+        this.setState(
+          {
+            storyInfo: res.data
+          },
+          () => {
+            console.log("this is the storyInfo state", this.state.storyInfo);
+          }
+        );
       })
+      .catch(err => console.log("this is an error", err));
+
+    API.displayRootEntry(id).then(res => {
+      console.log("next entry array: ", res.data[0].nextEntryArray);
+      this.setState(
+        {
+          currentEntry: res.data,
+          nextEntryArray: res.data[0].nextEntryArray
+        },
+        () => {
+          console.log(
+            "this is the currentEntry state",
+            this.state.currentEntry
+          );
+          console.log(
+            "this is the nextEntryArray: ",
+            this.state.nextEntryArray
+          );
+        }
+      );
+    });
   };
 
   newEntry = () => {
     API.saveEntry({
-      storyId: null,
+      storyId: this.state.storyInfo._id,
       content: this.state.newEntryContent,
       previousEntryId: this.state.currentEntry[0]._id
-    }).then(res => {
-        
+    })
+      .then(res => {
         console.log("new entry data", res.data);
-        let prevId = res.data.previousEntryId
-        let currentId = res.data._id
-        
+        let prevId = res.data.previousEntryId;
+        let currentId = res.data._id;
         API.updateEntry(prevId, {
           idToPush: currentId
-        })
-        .then(res => {
-          console.log("updated entry data", res)
-        })
-    })
-      .catch(err => console.log("this is an error", err))
-    // pass thru previousEntryId as the one we're searching for here 
-    
-  }
+        });
+      })
 
+      .then(res => {
+        console.log("updated entry data", res);
+      })
 
-
+      .catch(err => console.log("this is an error", err));
+    // pass thru previousEntryId as the one we're searching for here
+  };
 
   render() {
     return (
@@ -77,26 +87,22 @@ export default class DisplayedEntry extends Component {
         <div className="container" id="currentEntry">
           <h3>{this.state.storyInfo.title}</h3>
           id: {this.props.id}
-          <p>
-            {this.state.currentEntry.map(entry => {
-              return (
-                entry.content
-              )
-            })}
-            
-          </p>
+          {/* <p>{this.state.currentEntry}</p> */}
         </div>
-        <div className="container" id="nextEntries">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit,
-          minima?
-        </div>
-         
-        <NewEntryModal 
+
+        {this.state.currentEntry.map(entry => {
+          return (
+            <div key={entry._id} className="container" id="nextEntries">
+              {entry.content}
+            </div>
+          );
+        })}
+
+        <NewEntryModal
           newEntryContent={this.state.newEntryContent}
           handleInputChange={this.handleInputChange}
           newEntry={this.newEntry}
         />
-
       </div>
     );
   }
