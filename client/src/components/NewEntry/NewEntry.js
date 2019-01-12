@@ -59,7 +59,8 @@ const newEntry = props => (
             <button
               type="submit"
               className="btn btn-primary"
-              onClick={props.newEntry}
+              data-dismiss="modal"
+              onClick={props.newEntrySubmit}
             >
               Submit
             </button>

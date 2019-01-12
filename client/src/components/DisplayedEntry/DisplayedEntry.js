@@ -37,35 +37,40 @@ export default class DisplayedEntry extends Component {
       })
       .catch(err => console.log("this is an error", err));
 
-    API.displayRootEntry(id).then(res => {
-      console.log("next entry array: ", res.data[0].nextEntryArray);
-      this.setState(
-        {
-          currentEntry: res.data,
+    API.displayRootEntry(id)
+      .then(res => {
+        console.log("next entry array: ", res.data[0].nextEntryArray);
+      
+        this.setState(
+          {
+          currentEntry: res.data[0],
           nextEntryArray: res.data[0].nextEntryArray
-        },
-        () => {
-          console.log(
+          },
+          () => {
+            console.log(
             "this is the currentEntry state",
             this.state.currentEntry
-          );
-          console.log(
+            );
+            console.log(
             "this is the nextEntryArray: ",
             this.state.nextEntryArray
-          );
+            );
         }
       );
     });
   };
 
-  newEntry = () => {
+  newEntrySubmit = () => {
     API.saveEntry({
-      storyId: this.state.storyInfo._id,
+      storyId: null,
       content: this.state.newEntryContent,
-      previousEntryId: this.state.currentEntry[0]._id
+      previousEntryId: this.state.currentEntry._id
     })
       .then(res => {
         console.log("new entry data", res.data);
+        this.setState({
+          currentEntry: res.data
+        })
         let prevId = res.data.previousEntryId;
         let currentId = res.data._id;
         API.updateEntry(prevId, {
@@ -73,10 +78,10 @@ export default class DisplayedEntry extends Component {
         });
       })
 
-      .then(res => {
-        console.log("updated entry data", res);
+          .then(res => {
+            console.log("updated entry data (this is supposed to be undefined as we are not having mongo send us anything back in this case)", res);
       })
-
+      
       .catch(err => console.log("this is an error", err));
     // pass thru previousEntryId as the one we're searching for here
   };
@@ -87,21 +92,28 @@ export default class DisplayedEntry extends Component {
         <div className="container" id="currentEntry">
           <h3>{this.state.storyInfo.title}</h3>
           id: {this.props.id}
-          {/* <p>{this.state.currentEntry}</p> */}
+
+          <p>{this.state.currentEntry.content}</p>
         </div>
 
+
+        {/* 
         {this.state.currentEntry.map(entry => {
           return (
             <div key={entry._id} className="container" id="nextEntries">
               {entry.content}
             </div>
           );
-        })}
+        })} */}
+
+        <div key={this.state.currentEntry._id} className="container" id="nextEntries">
+               
+        </div>
 
         <NewEntryModal
           newEntryContent={this.state.newEntryContent}
           handleInputChange={this.handleInputChange}
-          newEntry={this.newEntry}
+          newEntrySubmit={this.newEntrySubmit}
         />
       </div>
     );
