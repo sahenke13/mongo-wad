@@ -79,7 +79,7 @@ export default class DisplayedEntry extends Component {
       })
 
           .then(res => {
-            console.log("updated entry data", res);
+            console.log("updated entry data (this is supposed to be undefined as we are not having mongo send us anything back in this case)", res);
       })
       
       .catch(err => console.log("this is an error", err));
@@ -92,6 +92,8 @@ export default class DisplayedEntry extends Component {
         <div className="container" id="currentEntry">
           <h3>{this.state.storyInfo.title}</h3>
           id: {this.props.id}
+
+          <p>{this.state.currentEntry.content}</p>
         </div>
 
 
@@ -105,7 +107,7 @@ export default class DisplayedEntry extends Component {
         })} */}
 
         <div key={this.state.currentEntry._id} className="container" id="nextEntries">
-               {this.state.currentEntry.content}
+               
         </div>
 
         <NewEntryModal
