@@ -32,6 +32,13 @@ export default class CreateStory extends Component {
           console.log(data);
         });
       });
+
+      this.setState({
+        title: "",
+        genre: "",
+        textGuy: ""
+      })
+
   };
 
   render() {

@@ -37,28 +37,30 @@ export default class DisplayedEntry extends Component {
       })
       .catch(err => console.log("this is an error", err));
 
-    API.displayRootEntry(id).then(res => {
-      console.log("next entry array: ", res.data[0].nextEntryArray);
-      this.setState(
-        {
+    API.displayRootEntry(id)
+      .then(res => {
+        console.log("next entry array: ", res.data[0].nextEntryArray);
+      
+        this.setState(
+          {
           currentEntry: res.data,
           nextEntryArray: res.data[0].nextEntryArray
-        },
-        () => {
-          console.log(
+          },
+          () => {
+            console.log(
             "this is the currentEntry state",
             this.state.currentEntry
-          );
-          console.log(
+            );
+            console.log(
             "this is the nextEntryArray: ",
             this.state.nextEntryArray
-          );
+            );
         }
       );
     });
   };
 
-  newEntry = () => {
+  newEntrySubmit = () => {
     API.saveEntry({
       storyId: this.state.storyInfo._id,
       content: this.state.newEntryContent,
@@ -66,6 +68,9 @@ export default class DisplayedEntry extends Component {
     })
       .then(res => {
         console.log("new entry data", res.data);
+        // this.setState({
+        //   currentEntry: res
+        // })
         let prevId = res.data.previousEntryId;
         let currentId = res.data._id;
         API.updateEntry(prevId, {
@@ -73,10 +78,10 @@ export default class DisplayedEntry extends Component {
         });
       })
 
-      .then(res => {
-        console.log("updated entry data", res);
+          .then(res => {
+            console.log("updated entry data", res);
       })
-
+      
       .catch(err => console.log("this is an error", err));
     // pass thru previousEntryId as the one we're searching for here
   };
@@ -101,7 +106,7 @@ export default class DisplayedEntry extends Component {
         <NewEntryModal
           newEntryContent={this.state.newEntryContent}
           handleInputChange={this.handleInputChange}
-          newEntry={this.newEntry}
+          newEntrySubmit={this.newEntrySubmit}
         />
       </div>
     );

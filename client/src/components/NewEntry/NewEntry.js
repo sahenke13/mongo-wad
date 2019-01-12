@@ -59,7 +59,7 @@ const newEntry = props => (
             <button
               type="submit"
               className="btn btn-primary"
-              onClick={props.newEntry}
+              onClick={props.newEntrySubmit}
             >
               Submit
             </button>
