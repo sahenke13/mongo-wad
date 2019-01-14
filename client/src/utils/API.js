@@ -32,6 +32,9 @@ export default {
   displayEntry: function(entryId) {
     return axios.get("/api/entry/" + entryId);
   },
+  displayNextEntries: function(nextEntryArray) {
+    return axios.get("/api/entry/next/" + nextEntryArray)
+  },
   deleteEntry: function(id) {
     return axios.delete("/api/entry/" + id);
   },

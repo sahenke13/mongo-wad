@@ -44,7 +44,6 @@ export default class DisplayedEntry extends Component {
         this.setState(
           {
           currentEntry: res.data[0],
-          // nextEntryArray: res.data[0].nextEntryArray
           },
           () => {
             console.log(
@@ -55,10 +54,23 @@ export default class DisplayedEntry extends Component {
             "this is the nextEntryArray: ",
             this.state.nextEntryArray
             );
-        }
-      );
-    });
-  };
+          }
+        );
+        let nextEntryId = this.state.currentEntry.nextEntryArray
+        // console.log("nextEntryId before stringify", nextEntryId)
+        // JSON.stringify(nextEntryId)
+        // console.log("nextEntryId AFTERstringify", nextEntryId)
+
+        API.displayNextEntries(nextEntryId)
+        .then(res => {
+          console.log("nextEntriesBack", res.data)
+        })
+      
+      })
+      .catch(err => console.log("this be an error", err))
+
+      
+    }
 
   newEntrySubmit = () => {
     API.saveEntry({
@@ -72,7 +84,8 @@ export default class DisplayedEntry extends Component {
           currentEntry: res.data
         })
         let prevId = res.data.previousEntryId;
-        let currentId = 'ObjectId("' + res.data._id + '")';
+        // let currentId = 'ObjectId("' + res.data._id + '")';
+        let currentId = res.data._id
         API.updateEntry(prevId, {
           idToPush: currentId
         });
@@ -83,7 +96,7 @@ export default class DisplayedEntry extends Component {
       })
       
       .catch(err => console.log("this is an error", err));
-    // pass thru previousEntryId as the one we're searching for here
+    
   };
 
   render() {
