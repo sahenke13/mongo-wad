@@ -57,7 +57,7 @@ export default class DisplayedEntry extends Component {
           }
         );
         let nextEntryId = this.state.currentEntry.nextEntryArray
-        // console.log("nextEntryId before stringify", nextEntryId)
+          console.log(nextEntryId)
         // JSON.stringify(nextEntryId)
         // console.log("nextEntryId AFTERstringify", nextEntryId)
 
