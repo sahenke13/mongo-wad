@@ -43,29 +43,20 @@ export default class DisplayedEntry extends Component {
       
         this.setState(
           {
-          currentEntry: res.data[0],
-          },
-          () => {
-            console.log(
-            "this is the currentEntry state",
-            this.state.currentEntry
-            );
-            console.log(
-            "this is the nextEntryArray: ",
-            this.state.nextEntryArray
-            );
+          currentEntry: res.data[0]
           }
         );
         let nextEntryId = this.state.currentEntry.nextEntryArray
           console.log(nextEntryId)
-        // JSON.stringify(nextEntryId)
-        // console.log("nextEntryId AFTERstringify", nextEntryId)
-
+       
         API.displayNextEntries(nextEntryId)
         .then(res => {
-          console.log("nextEntriesBack", res.data)
+          this.setState({
+            nextEntryArray: res.data
+          });
+          console.log(this.state.nextEntryArray)
         })
-      
+        
       })
       .catch(err => console.log("this be an error", err))
 
@@ -73,6 +64,7 @@ export default class DisplayedEntry extends Component {
     }
 
   newEntrySubmit = () => {
+    
     API.saveEntry({
       storyId: null,
       content: this.state.newEntryContent,
@@ -80,12 +72,14 @@ export default class DisplayedEntry extends Component {
     })
       .then(res => {
         console.log("new entry data", res.data);
+        
         this.setState({
           currentEntry: res.data
-        })
+        });
+        
         let prevId = res.data.previousEntryId;
-        // let currentId = 'ObjectId("' + res.data._id + '")';
         let currentId = res.data._id
+        
         API.updateEntry(prevId, {
           idToPush: currentId
         });
@@ -110,18 +104,18 @@ export default class DisplayedEntry extends Component {
         </div>
 
 
-        {/* 
-        {this.state.currentEntry.map(entry => {
+        
+        {this.state.nextEntryArray.map(entry => {
           return (
             <div key={entry._id} className="container" id="nextEntries">
               {entry.content}
             </div>
           );
-        })} */}
+        })}
 
-        <div key={this.state.currentEntry._id} className="container" id="nextEntries">
+        {/* <div key={this.state.currentEntry._id} className="container" id="nextEntries">
                
-        </div>
+        </div> */}
 
         <NewEntryModal
           newEntryContent={this.state.newEntryContent}
