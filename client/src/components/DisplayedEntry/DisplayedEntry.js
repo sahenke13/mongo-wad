@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./DisplayEntry.css";
 import NewEntryModal from "../NewEntry";
 import API from "../../utils/API";
+import { Link } from "react-router-dom";
 
 export default class DisplayedEntry extends Component {
   state = {
@@ -110,9 +111,11 @@ export default class DisplayedEntry extends Component {
         
         {this.state.nextEntryArray.map(entry => {
           return (
-            <div key={entry._id} className="container" id="nextEntries">
-              {entry.content}
-            </div>
+            <Link to={`/currentEntry/${entry._id}`} key={entry._id}>
+              <div key={entry._id} className="container" id="nextEntries">
+                {entry.content}
+              </div>
+            </Link>
           );
         })}
 

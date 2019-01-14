@@ -13,6 +13,7 @@ router
 router
   .route("/next/:nextEntriesArray")
   .get(entryController.findNextEntries)
+  
 router
   .route("/:id")
   .put(entryController.update)
