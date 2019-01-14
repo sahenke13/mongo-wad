@@ -36,10 +36,10 @@ module.exports = {
     },
     findNextEntries: function(req, res) {
         db.Entry
-            .find({_id: { $in: req.params.nextEntriesArray }})
+            .find({_id: { $in: req.params.nextEntriesArray}})
             // console.log("this is the nextEntry request params", req.params)
             .then(dbModel => {
-                console.log(dbModel)
+                console.log("here are the next entries from the database", dbModel)
                 res.json(dbModel);
             })
             .catch(err => res.status(422).json(err))
