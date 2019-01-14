@@ -22,7 +22,7 @@ export default class DisplayedEntry extends Component {
       [name]: value
     });
   };
-
+// maybe do something like this but instead of passing id thru pass thru nextEntryArray in params??
   findStory = id => {
     API.getStory(id)
       .then(res => {
@@ -44,7 +44,7 @@ export default class DisplayedEntry extends Component {
         this.setState(
           {
           currentEntry: res.data[0],
-          nextEntryArray: res.data[0].nextEntryArray
+          // nextEntryArray: res.data[0].nextEntryArray
           },
           () => {
             console.log(
@@ -72,7 +72,7 @@ export default class DisplayedEntry extends Component {
           currentEntry: res.data
         })
         let prevId = res.data.previousEntryId;
-        let currentId = res.data._id;
+        let currentId = 'ObjectId("' + res.data._id + '")';
         API.updateEntry(prevId, {
           idToPush: currentId
         });
