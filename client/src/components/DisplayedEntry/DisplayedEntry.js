@@ -74,7 +74,10 @@ export default class DisplayedEntry extends Component {
         console.log("new entry data", res.data);
         
         this.setState({
-          currentEntry: res.data
+          currentEntry: res.data,
+          newEntryContent: "",
+          nextEntryArray: res.data.nextEntryArray,
+          previousEntryId: res.data.previousEntryId
         });
         
         let prevId = res.data.previousEntryId;
@@ -86,7 +89,7 @@ export default class DisplayedEntry extends Component {
       })
 
           .then(res => {
-            console.log("updated entry data (this is supposed to be undefined as we are not having mongo send us anything back in this case)", res);
+            console.log("this is supposed to be undefined", res);
       })
       
       .catch(err => console.log("this is an error", err));
@@ -112,10 +115,6 @@ export default class DisplayedEntry extends Component {
             </div>
           );
         })}
-
-        {/* <div key={this.state.currentEntry._id} className="container" id="nextEntries">
-               
-        </div> */}
 
         <NewEntryModal
           newEntryContent={this.state.newEntryContent}
