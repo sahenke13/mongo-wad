@@ -35,20 +35,13 @@ module.exports = {
             .catch(err => res.status(422).json(err))
     },
     findNextEntries: function(req, res) {
-        
-        console.log(req.params)
-        
         let entriesArray = req.params.nextEntriesArray.split(',');
-        console.log(entriesArray)
-        
-        db.Entry
-            .find({_id: { $in: entriesArray}})
-            // console.log("this is the nextEntry request params", req.params)
-            .then(dbModel => {
-                console.log("here are the next entries from the database", dbModel)
-                res.json(dbModel);
-            })
-            .catch(err => res.status(422).json(err))
+            db.Entry
+                .find({_id: { $in: entriesArray}})
+                .then(dbModel => {
+                    res.json(dbModel);
+                })
+                .catch(err => res.status(422).json(err))
             
     },
     findById: function(req, res) {
