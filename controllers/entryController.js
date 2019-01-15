@@ -26,7 +26,6 @@ module.exports = {
             })
             .catch(err => res.status(422).json(err));
     },
-
     findRootEntry: function(req, res) {
         db.Entry
             .find({storyId: req.params.storyId})
@@ -35,7 +34,16 @@ module.exports = {
             })
             .catch(err => res.status(422).json(err))
     },
-
+    findNextEntries: function(req, res) {
+        let entriesArray = req.params.nextEntriesArray.split(',');
+            db.Entry
+                .find({_id: { $in: entriesArray}})
+                .then(dbModel => {
+                    res.json(dbModel);
+                })
+                .catch(err => res.status(422).json(err))
+            
+    },
     findById: function(req, res) {
         db.Entry
             .findById(req.params.id)
@@ -61,7 +69,7 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     }
-    };
+};
 
 
 
