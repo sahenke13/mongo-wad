@@ -1,33 +1,57 @@
-import React from "react";
-import favicon from "./favicon.png";
+import React from 'react';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem } from 'reactstrap';
 
-const Header = () => (
-  <div className="navbar fixed-top navbar-dark bg-primary">
-    <div className="container">
-      <a href="/" className="navbar-brand">
-        <img src={favicon} alt="favicon" className="img-fluid" />
-        <span id="brand">Word-Wad</span>
-      </a>
-      <ul className="navbar nav">
-        <li className="nav-item">
-          <a href="/" className="nav-link text-white">
-            Home
-          </a>
-        </li>
-        <li className="nav-item">
-          <a href="/browseStories" className="nav-link text-white">
-            Browse Stories
-          </a>
-        </li>
+export default class Header extends React.Component {
+  constructor(props) {
+    super(props);
 
-        <li className="nav-item">
-          <a href="/createStory" className="nav-link text-white">
-            Create New Story
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-);
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  render() {
+    return (
+      <div>
 
-export default Header;
+        <Navbar color="dark" light expand="sm" class="text-white">
+        <div className="container">
+          <NavbarBrand href="/" className="text-white">[word]:[wad]</NavbarBrand>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="/" className="text-white">Home</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/BrowseStories" className="text-white">Browse Stories</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/CreateStory" className="text-white">Create New Story</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+          </div>
+        </Navbar>
+
+        </div>
+
+    );
+  }
+}
