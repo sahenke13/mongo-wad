@@ -34,12 +34,9 @@ export default class CreateStory extends Component {
             title: "",
             genre: "",
             textGuy: ""
-          })
+          });
         });
       });
-
-      
-
   };
 
   render() {
@@ -49,39 +46,52 @@ export default class CreateStory extends Component {
         <div className="container" id="storyform">
           <h1>Let's Create a Story</h1>
           <div className="row">
-            <div className="col-md-12">
-              <form className="form">
-                {/* Title Entry */}
-                <input
-                  value={this.state.title}
-                  type="text"
-                  name="title"
-                  onChange={this.handleInputChange}
-                  className="form-control spacing"
-                  placeholder="Give your Story a name"
-                />
-                {/* Genre Entry */}
-                <input
-                  value={this.state.genre}
-                  type="text"
-                  name="genre"
-                  onChange={this.handleInputChange}
-                  className="form-control spacing"
-                  placeholder="Decide on the genre"
-                />
-                {/* Root Entry */}
-                <textarea
-                  value={this.state.textGuy}
-                  type="text"
-                  name="textGuy"
-                  rows="10"
-                  onChange={this.handleInputChange}
-                  className="form-control spacing"
-                  placeholder="Start your story here"
-                />
-                {/* Submit button */}
-                <button onClick={this.handleStorySubmit}>Submit</button>
-              </form>
+            <div className="container">
+              <div className="col-md-12">
+                <form>
+                  <form action="" className="form-group">
+                    {" "}
+                    {/* Title Entry */}
+                    <input
+                      value={this.state.title}
+                      type="text"
+                      name="title"
+                      onChange={this.handleInputChange}
+                      className="form-control spacing"
+                      placeholder="Give your Story a name"
+                    />
+                  </form>
+                  <form action="" className="form-group" />
+                  {/* Genre Entry */}
+                  <form action="" className="form-group">
+                    {/* Genre Entry */}
+                    <input
+                      value={this.state.genre}
+                      type="text"
+                      name="genre"
+                      onChange={this.handleInputChange}
+                      className="form-control spacing"
+                      placeholder="Decide on the genre"
+                    />
+                  </form>
+                  {/* Genre Entry */}
+                  <form action="" className="form-group">
+                    {/* Root Entry */}
+                    <textarea
+                      value={this.state.textGuy}
+                      type="text"
+                      name="textGuy"
+                      rows="10"
+                      onChange={this.handleInputChange}
+                      className="form-control spacing"
+                      placeholder="Start your story here"
+                    />
+                  </form>
+
+                  {/* Submit button */}
+                  <button onClick={this.handleStorySubmit}>Submit</button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
