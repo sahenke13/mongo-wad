@@ -97,27 +97,43 @@ export default class DisplayedEntry extends Component {
     
   };
 
+  entryClicked = () => {
+    console.log("entry has been clicked");
+  };
+
   render() {
+    const { id } = this.props;
     return (
       <div className="container">
         <div className="container" id="currentEntry">
           <h3>{this.state.storyInfo.title}</h3>
-          id: {this.props.id}
-
-          <p>{this.state.currentEntry.content}</p>
+          id: {id}
+          {/* <p>{this.state.currentEntry}</p> */}
         </div>
 
 
         
         {this.state.nextEntryArray.map(entry => {
           return (
-            <Link to={`/currentEntry/${entry._id}`} key={entry._id}>
-              <div key={entry._id} className="container" id="nextEntries">
-                {entry.content}
-              </div>
-            </Link>
+            <div
+              key={entry._id}
+              className="container my-3 rounded"
+              id="nextEntries"
+              onClick={this.entryClicked}
+            >
+              {entry.content}
+            </div>
           );
         })}
+
+        <button
+          type="button"
+          className="btn btn-primary my-2"
+          data-toggle="modal"
+          data-target="#entryModal"
+        >
+          Create New Entry
+        </button>
 
         <NewEntryModal
           newEntryContent={this.state.newEntryContent}
