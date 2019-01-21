@@ -107,21 +107,14 @@ export default class DisplayedEntry extends Component {
       <div className="container">
         <div className="container" id="currentEntry">
           <h3>{this.state.storyInfo.title}</h3>
-<<<<<<< HEAD
           id: {id}
           {/* <p>{this.state.currentEntry}</p> */}
-=======
-          id: {this.props.id}
-
-          <p>{this.state.currentEntry.content}</p>
->>>>>>> master
         </div>
 
 
         
         {this.state.nextEntryArray.map(entry => {
           return (
-<<<<<<< HEAD
             <div
               key={entry._id}
               className="container my-3 rounded"
@@ -130,13 +123,6 @@ export default class DisplayedEntry extends Component {
             >
               {entry.content}
             </div>
-=======
-            <Link to={`/currentEntry/${entry._id}`} key={entry._id}>
-              <div key={entry._id} className="container" id="nextEntries">
-                {entry.content}
-              </div>
-            </Link>
->>>>>>> master
           );
         })}
 
