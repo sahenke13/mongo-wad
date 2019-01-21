@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./DisplayEntry.css";
 import NewEntryModal from "../NewEntry";
 import API from "../../utils/API";
+import { Link } from "react-router-dom";
 
 export default class DisplayedEntry extends Component {
   state = {
@@ -22,7 +23,7 @@ export default class DisplayedEntry extends Component {
       [name]: value
     });
   };
-
+// maybe do something like this but instead of passing id thru pass thru nextEntryArray in params??
   findStory = id => {
     API.getStory(id)
       .then(res => {
@@ -37,48 +38,63 @@ export default class DisplayedEntry extends Component {
       })
       .catch(err => console.log("this is an error", err));
 
-    API.displayRootEntry(id).then(res => {
-      console.log("next entry array: ", res.data[0].nextEntryArray);
-      this.setState(
-        {
-          currentEntry: res.data,
-          nextEntryArray: res.data[0].nextEntryArray
-        },
-        () => {
-          console.log(
-            "this is the currentEntry state",
-            this.state.currentEntry
-          );
-          console.log(
-            "this is the nextEntryArray: ",
-            this.state.nextEntryArray
-          );
-        }
-      );
-    });
-  };
+    API.displayRootEntry(id)
+      .then(res => {
+        console.log("next entry array: ", res.data[0].nextEntryArray);
+      
+        this.setState(
+          {
+          currentEntry: res.data[0]
+          }
+        );
+        let nextEntryId = this.state.currentEntry.nextEntryArray
+          console.log(nextEntryId)
+       
+        API.displayNextEntries(nextEntryId)
+        .then(res => {
+          this.setState({
+            nextEntryArray: res.data
+          });
+          console.log(this.state.nextEntryArray)
+        })
+        
+      })
+      .catch(err => console.log("this be an error", err))
 
-  newEntry = () => {
+      
+    }
+
+  newEntrySubmit = () => {
+    
     API.saveEntry({
-      storyId: this.state.storyInfo._id,
+      storyId: null,
       content: this.state.newEntryContent,
-      previousEntryId: this.state.currentEntry[0]._id
+      previousEntryId: this.state.currentEntry._id
     })
       .then(res => {
         console.log("new entry data", res.data);
+        
+        this.setState({
+          currentEntry: res.data,
+          newEntryContent: "",
+          nextEntryArray: res.data.nextEntryArray,
+          previousEntryId: res.data.previousEntryId
+        });
+        
         let prevId = res.data.previousEntryId;
-        let currentId = res.data._id;
+        let currentId = res.data._id
+        
         API.updateEntry(prevId, {
           idToPush: currentId
         });
       })
 
-      .then(res => {
-        console.log("updated entry data", res);
+          .then(res => {
+            console.log("this is supposed to be undefined", res);
       })
-
+      
       .catch(err => console.log("this is an error", err));
-    // pass thru previousEntryId as the one we're searching for here
+    
   };
 
   entryClicked = () => {
@@ -91,12 +107,21 @@ export default class DisplayedEntry extends Component {
       <div className="container">
         <div className="container" id="currentEntry">
           <h3>{this.state.storyInfo.title}</h3>
+<<<<<<< HEAD
           id: {id}
           {/* <p>{this.state.currentEntry}</p> */}
+=======
+          id: {this.props.id}
+
+          <p>{this.state.currentEntry.content}</p>
+>>>>>>> master
         </div>
 
-        {this.state.currentEntry.map(entry => {
+
+        
+        {this.state.nextEntryArray.map(entry => {
           return (
+<<<<<<< HEAD
             <div
               key={entry._id}
               className="container my-3 rounded"
@@ -105,6 +130,13 @@ export default class DisplayedEntry extends Component {
             >
               {entry.content}
             </div>
+=======
+            <Link to={`/currentEntry/${entry._id}`} key={entry._id}>
+              <div key={entry._id} className="container" id="nextEntries">
+                {entry.content}
+              </div>
+            </Link>
+>>>>>>> master
           );
         })}
 
@@ -120,7 +152,7 @@ export default class DisplayedEntry extends Component {
         <NewEntryModal
           newEntryContent={this.state.newEntryContent}
           handleInputChange={this.handleInputChange}
-          newEntry={this.newEntry}
+          newEntrySubmit={this.newEntrySubmit}
         />
       </div>
     );
