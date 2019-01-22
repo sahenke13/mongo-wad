@@ -73,9 +73,9 @@ export default class DisplayedEntry extends Component {
         API.updateEntry(prevId, {
           idToPush: currentId
         })
-
+        
         this.setState({
-          currentEntry: res,
+          currentEntry: res.data,
           // nextEntryArray: res.data.nextEntryArray,
           previousEntryId: res.data.previousEntryId,
           newEntryContent: "",
@@ -139,10 +139,10 @@ export default class DisplayedEntry extends Component {
       <div className="container">
         <h1>{this.state.currentEntry.content}</h1>
       </div>
+      
 
-
-        {this.state.currentEntry ? (
-          this.state.currentEntry.map(entry => (
+        {this.state.currentEntry.nextEntryArray ? (
+          this.state.currentEntry.nextEntryArray.map(entry => (
             <div
               key={entry._id}
               className="container my-3 rounded border border-primary"
