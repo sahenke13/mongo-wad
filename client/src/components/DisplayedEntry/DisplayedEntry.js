@@ -75,8 +75,8 @@ export default class DisplayedEntry extends Component {
         })
 
         this.setState({
-          currentEntry: res.data,
-          nextEntryArray: res.data.nextEntryArray,
+          currentEntry: res,
+          // nextEntryArray: res.data.nextEntryArray,
           previousEntryId: res.data.previousEntryId,
           newEntryContent: "",
           currentId: res.data._id
