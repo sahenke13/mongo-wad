@@ -26,6 +26,9 @@ export default class CreateStory extends Component {
       .then(resObj => {
         console.log(resObj)
       });
+
+      
+
   };
 
   render() {

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./DisplayEntry.css";
 import NewEntryModal from "../NewEntry";
 import API from "../../utils/API";
+import { Link } from "react-router-dom";
 
 export default class DisplayedEntry extends Component {
   state = {
@@ -24,7 +25,7 @@ export default class DisplayedEntry extends Component {
       [name]: value
     });
   };
-
+// maybe do something like this but instead of passing id thru pass thru nextEntryArray in params??
   findStory = id => {
     API.getStory(id)
       .then(res => {
@@ -62,14 +63,23 @@ export default class DisplayedEntry extends Component {
   //I believe that previous entry Id is not right here.  It is always saving new entryies to the same first entry
   newEntry = () => {
     API.saveEntry({
-      storyId: this.state.storyInfo._id,
+      storyId: null,
       content: this.state.newEntryContent,
       previousEntryId: this.state.currentId
     })
       .then(res => {
         console.log("new entry data", res.data);
+        
+        this.setState({
+          currentEntry: res.data,
+          newEntryContent: "",
+          nextEntryArray: res.data.nextEntryArray,
+          previousEntryId: res.data.previousEntryId
+        });
+        
         let prevId = res.data.previousEntryId;
-        let currentId = res.data._id;
+        let currentId = res.data._id
+        
         API.updateEntry(prevId, {
           idToPush: currentId
         })
@@ -94,7 +104,7 @@ export default class DisplayedEntry extends Component {
       
 
       .catch(err => console.log("this is an error", err));
-    // pass thru previousEntryId as the one we're searching for here
+    
   };
 
   entryClicked = id => {
@@ -183,7 +193,7 @@ export default class DisplayedEntry extends Component {
         <NewEntryModal
           newEntryContent={this.state.newEntryContent}
           handleInputChange={this.handleInputChange}
-          newEntry={this.newEntry}
+          newEntrySubmit={this.newEntrySubmit}
         />
       </div>
     );

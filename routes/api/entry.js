@@ -9,6 +9,10 @@ router
 router.route("/root/:storyId").get(entryController.findRootEntry);
 
 router
+  .route("/next/:nextEntriesArray")
+  .get(entryController.findNextEntries)
+  
+router
   .route("/:id")
   .put(entryController.update)
   .delete(entryController.remove)
