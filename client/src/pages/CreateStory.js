@@ -28,13 +28,6 @@ export default class CreateStory extends Component {
           storyId: storyId,
           content: this.state.textGuy,
           previousEntryId: null
-        }).then(data => {
-          console.log(data);
-          this.setState({
-            title: "",
-            genre: "",
-            textGuy: ""
-          })
         });
       });
 

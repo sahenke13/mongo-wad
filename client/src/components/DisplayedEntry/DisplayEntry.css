@@ -5,7 +5,7 @@
     margin-left: auto;
     text-align: center;
     justify-content: center;
-    border: 1rem solid blue;
+    border: .025rem solid blue;
 }
 
 #nextEntries {
@@ -14,7 +14,7 @@
     margin: auto;
     text-align: center;
     justify-content: center;
-    border: 1rem solid blue;
+    border: .025rem solid blue;
 
 
 }
