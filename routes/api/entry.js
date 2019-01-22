@@ -6,9 +6,7 @@ router
   .get(entryController.findAll)
   .post(entryController.create);
 
-router
-  .route("/root/:storyId")
-  .get(entryController.findRootEntry)
+router.route("/root/:storyId").get(entryController.findRootEntry);
 
 router
   .route("/next/:nextEntriesArray")
@@ -17,10 +15,9 @@ router
 router
   .route("/:id")
   .put(entryController.update)
-  .delete(entryController.remove);
+  .delete(entryController.remove)
+  .get(entryController.findAll);
 
-router
-  .route("/byuser/:userId")
-  .get(entryController.findByUser);
+router.route("/byuser/:userId").get(entryController.findByUser);
 
 module.exports = router;
