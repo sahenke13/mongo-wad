@@ -9,11 +9,13 @@ export default class DisplayedEntry extends Component {
     currentEntry: [],
     nextEntryArray: [],
     previousEntryId: "",
-    newEntryContent: ""
+    newEntryContent: "",
+    currentId: ""
   };
 
   componentDidMount = () => {
     this.findStory(this.props.id);
+    console.log("component did mount has fired");
   };
 
   handleInputChange = event => {
@@ -27,22 +29,22 @@ export default class DisplayedEntry extends Component {
     API.getStory(id)
       .then(res => {
         this.setState(
-          {
-            storyInfo: res.data
+          () => {
+            return { storyInfo: res.data };
           },
           () => {
-            console.log("this is the storyInfo state", this.state.storyInfo);
+            console.log("this is the storyInfo state", res.data);
           }
         );
       })
       .catch(err => console.log("this is an error", err));
 
     API.displayRootEntry(id).then(res => {
-      console.log("next entry array: ", res.data[0].nextEntryArray);
+      console.log("display root res.data:  ", res.data);
       this.setState(
         {
           currentEntry: res.data,
-          nextEntryArray: res.data[0].nextEntryArray
+          nextEntryArray: res.data
         },
         () => {
           console.log(
@@ -74,39 +76,78 @@ export default class DisplayedEntry extends Component {
       })
 
       .then(res => {
-        console.log("updated entry data", res);
+        console.log("updated entry data", res.data);
       })
 
       .catch(err => console.log("this is an error", err));
     // pass thru previousEntryId as the one we're searching for here
   };
 
-  entryClicked = () => {
-    console.log("entry has been clicked");
+  entryClicked = id => {
+    console.log("id :", id);
+    this.setState({ currentId: id }, () => this.updateCurrentEntry(id));
+  };
+
+  updateCurrentEntry = id => {
+    console.log("update current entry id: ", id);
+    API.displayEntry(id)
+      .then(res => {
+        console.log(res.data);
+        this.setState(
+          () => {
+            return { nextEntryArray: res.data };
+          },
+          () => {
+            console.log(
+              "this is the nextEntry Array state",
+              this.state.nextEntryArray
+            );
+          }
+        );
+      })
+      .catch(err => console.log("this is an error", err));
   };
 
   render() {
     const { id } = this.props;
+
     return (
       <div className="container">
         <div className="container" id="currentEntry">
           <h3>{this.state.storyInfo.title}</h3>
           id: {id}
-          {/* <p>{this.state.currentEntry}</p> */}
+          {/* <p>{this.state.currentEntry[0].content}</p> */}
         </div>
 
-        {this.state.currentEntry.map(entry => {
-          return (
+        {this.state.nextEntryArray ? (
+          this.state.nextEntryArray.map(entry => (
             <div
               key={entry._id}
               className="container my-3 rounded"
               id="nextEntries"
-              onClick={this.entryClicked}
+              onClick={() => this.entryClicked(entry._id)}
+            >
+              {entry.content}
+            </div>
+          ))
+        ) : (
+          <div className="container p-2 my-3">
+            <h1>No Next Entries</h1>
+          </div>
+        )}
+
+        {/* {this.state.currentEntry.map(entry => {
+          return (
+            <div
+              key={entry._id}
+              className="container my-3 rounded border border-primary"
+              id="nextEntries"
+              onClick={() => this.entryClicked(entry._id)}
             >
               {entry.content}
             </div>
           );
-        })}
+        })} */}
 
         <button
           type="button"
