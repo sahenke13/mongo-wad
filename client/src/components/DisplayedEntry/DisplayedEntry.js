@@ -62,7 +62,7 @@ export default class DisplayedEntry extends Component {
   //I believe that previous entry Id is not right here.  It is always saving new entryies to the same first entry
   newEntry = () => {
     API.saveEntry({
-      // storyId: this.state.storyInfo._id,
+      storyId: this.state.storyInfo._id,
       content: this.state.newEntryContent,
       previousEntryId: this.state.currentId
     })
@@ -141,8 +141,8 @@ export default class DisplayedEntry extends Component {
       </div>
 
 
-        {/* {this.state.nextEntryArray ? (
-          this.state.nextEntryArray.map(entry => (
+        {this.state.currentEntry ? (
+          this.state.currentEntry.map(entry => (
             <div
               key={entry._id}
               className="container my-3 rounded border border-primary"
@@ -156,7 +156,7 @@ export default class DisplayedEntry extends Component {
           <div className="container p-2 my-3">
             <h1>No Next Entries</h1>
           </div>
-        )} */}
+        )}
 
         {/* {this.state.currentEntry.map(entry => {
           return (
