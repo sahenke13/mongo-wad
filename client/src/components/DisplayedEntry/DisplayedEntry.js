@@ -43,8 +43,7 @@ export default class DisplayedEntry extends Component {
       console.log("display root res.data:  ", res.data);
       this.setState(
         {
-          currentEntry: res.data[0],
-          nextEntryArray: res.data[0].nextEntryArray
+          currentEntry: res.data[0]
         },
         () => {
           console.log(
@@ -126,12 +125,15 @@ export default class DisplayedEntry extends Component {
 
   render() {
     const { id } = this.props;
-
+    const { title, genre, description} = this.state.storyInfo
+    
     return (
       <div className="container">
         <div className="container" id="currentEntry">
-          <h3>{this.state.storyInfo.title}</h3>
+          <h3>{title}</h3>
           StoryId: {id}
+          <h4>{genre}</h4>
+          <h5>{description}</h5>
         </div>
       
       <div className="container">

@@ -29,6 +29,9 @@ export default class CreateStory extends Component {
   };
 
   render() {
+    
+    const { title, genre, description } = this.state
+    
     return (
       <div>
         <br />
@@ -39,7 +42,7 @@ export default class CreateStory extends Component {
               <form className="form">
                 {/* Title Entry */}
                 <input
-                  value={this.state.title}
+                  value={title}
                   type="text"
                   name="title"
                   onChange={this.handleInputChange}
@@ -48,7 +51,7 @@ export default class CreateStory extends Component {
                 />
                 {/* Genre Entry */}
                 <input
-                  value={this.state.genre}
+                  value={genre}
                   type="text"
                   name="genre"
                   onChange={this.handleInputChange}
@@ -57,9 +60,9 @@ export default class CreateStory extends Component {
                 />
                 {/* Root Entry */}
                 <textarea
-                  value={this.state.textGuy}
+                  value={description}
                   type="text"
-                  name="textGuy"
+                  name="description"
                   rows="10"
                   onChange={this.handleInputChange}
                   className="form-control spacing"
