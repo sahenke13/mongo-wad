@@ -39,24 +39,24 @@ export default class DisplayedEntry extends Component {
       })
       .catch(err => console.log("this is an error", err));
 
-    API.displayRootEntry(id).then(res => {
-      console.log("display root res.data:  ", res.data);
-      this.setState(
-        {
-          currentEntry: res.data[0]
-        },
-        () => {
-          console.log(
-            "this is the currentEntry state",
-            this.state.currentEntry
-          );
-          console.log(
-            "this is the nextEntryArray: ",
-            this.state.nextEntryArray
-          );
-        }
-      );
-    });
+    // API.displayRootEntry(id).then(res => {
+    //   console.log("display root res.data:  ", res.data);
+    //   this.setState(
+    //     {
+    //       currentEntry: res.data[0]
+    //     },
+    //     () => {
+    //       console.log(
+    //         "this is the currentEntry state",
+    //         this.state.currentEntry
+    //       );
+    //       console.log(
+    //         "this is the nextEntryArray: ",
+    //         this.state.nextEntryArray
+    //       );
+    //     }
+    //   );
+    // });
   };
 
   //I believe that previous entry Id is not right here.  It is always saving new entryies to the same first entry
