@@ -9,9 +9,11 @@ const storySchema = new Schema({
   genre: {
     type: String,
     required: true
+  },
+  description: {
+    type: String,
+    required: true
   }
-  //   firstEntryId: Number
-  // userId: {type: Number, required: true}
 });
 
 const Story = mongoose.model("Story", storySchema);

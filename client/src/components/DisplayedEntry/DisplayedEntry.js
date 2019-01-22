@@ -43,8 +43,8 @@ export default class DisplayedEntry extends Component {
       console.log("display root res.data:  ", res.data);
       this.setState(
         {
-          currentEntry: res.data,
-          nextEntryArray: res.data
+          currentEntry: res.data[0],
+          nextEntryArray: res.data[0].nextEntryArray
         },
         () => {
           console.log(
@@ -63,7 +63,7 @@ export default class DisplayedEntry extends Component {
   //I believe that previous entry Id is not right here.  It is always saving new entryies to the same first entry
   newEntry = () => {
     API.saveEntry({
-      storyId: this.state.storyInfo._id,
+      // storyId: this.state.storyInfo._id,
       content: this.state.newEntryContent,
       previousEntryId: this.state.currentId
     })
@@ -73,12 +73,26 @@ export default class DisplayedEntry extends Component {
         let currentId = res.data._id;
         API.updateEntry(prevId, {
           idToPush: currentId
-        });
+        })
+
+        this.setState({
+          currentEntry: res.data,
+          nextEntryArray: res.data.nextEntryArray,
+          previousEntryId: res.data.previousEntryId,
+          newEntryContent: "",
+          currentId: res.data._id
+        })
+
       })
 
       .then(res => {
         console.log("updated entry data", res.data);
+        
+        
+      
       })
+
+      
 
       .catch(err => console.log("this is an error", err));
     // pass thru previousEntryId as the one we're searching for here
@@ -117,11 +131,15 @@ export default class DisplayedEntry extends Component {
       <div className="container">
         <div className="container" id="currentEntry">
           <h3>{this.state.storyInfo.title}</h3>
-          id: {id}
-          {/* <p>{this.state.currentEntry[0].content}</p> */}
+          StoryId: {id}
         </div>
+      
+      <div className="container">
+        <h1>{this.state.currentEntry.content}</h1>
+      </div>
 
-        {this.state.nextEntryArray ? (
+
+        {/* {this.state.nextEntryArray ? (
           this.state.nextEntryArray.map(entry => (
             <div
               key={entry._id}
@@ -136,7 +154,7 @@ export default class DisplayedEntry extends Component {
           <div className="container p-2 my-3">
             <h1>No Next Entries</h1>
           </div>
-        )}
+        )} */}
 
         {/* {this.state.currentEntry.map(entry => {
           return (
