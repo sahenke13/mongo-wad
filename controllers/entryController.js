@@ -13,6 +13,7 @@ module.exports = {
     db.Entry.find({ previousEntryId: req.params.id })
       .sort()
       .then(dbModel => {
+        console.log("dbmodel is: ", dbModel);
         res.json(dbModel);
       })
       .catch(err => res.status(422).json(err));

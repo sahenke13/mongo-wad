@@ -9,8 +9,8 @@ const storySchema = new Schema({
   genre: {
     type: String,
     required: true
-  },
-  firstEntryId: Number
+  }
+  //   firstEntryId: Number
   // userId: {type: Number, required: true}
 });
 

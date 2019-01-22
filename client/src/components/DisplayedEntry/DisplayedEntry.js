@@ -60,11 +60,12 @@ export default class DisplayedEntry extends Component {
     });
   };
 
+  //I believe that previous entry Id is not right here.  It is always saving new entryies to the same first entry
   newEntry = () => {
     API.saveEntry({
       storyId: this.state.storyInfo._id,
       content: this.state.newEntryContent,
-      previousEntryId: this.state.currentEntry[0]._id
+      previousEntryId: this.state.currentId
     })
       .then(res => {
         console.log("new entry data", res.data);
@@ -88,6 +89,7 @@ export default class DisplayedEntry extends Component {
     this.setState({ currentId: id }, () => this.updateCurrentEntry(id));
   };
 
+  //I believe displayEntry should be update Entry here
   updateCurrentEntry = id => {
     console.log("update current entry id: ", id);
     API.displayEntry(id)
@@ -123,7 +125,7 @@ export default class DisplayedEntry extends Component {
           this.state.nextEntryArray.map(entry => (
             <div
               key={entry._id}
-              className="container my-3 rounded"
+              className="container my-3 rounded border border-primary"
               id="nextEntries"
               onClick={() => this.entryClicked(entry._id)}
             >
