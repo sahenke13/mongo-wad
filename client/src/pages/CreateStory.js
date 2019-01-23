@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+// import { Redirect } from "react-router-dom";
 import API from "../utils/API";
 
 export default class CreateStory extends Component {
@@ -15,6 +16,9 @@ export default class CreateStory extends Component {
     });
   };
 
+  
+  
+
   handleStorySubmit = event => {  
     event.preventDefault();
     API.saveStory({
@@ -27,15 +31,13 @@ export default class CreateStory extends Component {
         console.log(resObj)
 
         this.setState({
-          title: "",
-          genre: "",
-          description: ""
-        });
-      });
+            title: "",
+            genre: "",
+            description: ""
+          });
+        })
+    };
 
-      
-
-  };
 
   render() {
     
