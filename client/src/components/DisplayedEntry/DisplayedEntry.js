@@ -78,10 +78,10 @@ export default class DisplayedEntry extends Component {
         });
 
         let prevId = res.data.previousEntryId;
-        let currentId = res.data._id;
+        let currentEntry = res.data
 
         API.updateEntry(prevId, {
-          idToPush: currentId
+          entryToPush: currentEntry
         });
 
         this.setState({
@@ -171,7 +171,7 @@ export default class DisplayedEntry extends Component {
                 id="nextEntries"
                 onClick={() => this.entryClicked(entry._id)}
               >
-                {entry}
+                {entry.content}
               </div>
             </div>
           ))
