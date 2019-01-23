@@ -25,6 +25,12 @@ export default class CreateStory extends Component {
       // After creating the story, we use the promise to save the newly created StoryId to the State. We Can then use that to save along with Entry text.
       .then(resObj => {
         console.log(resObj)
+
+        this.setState({
+          title: "",
+          genre: "",
+          description: ""
+        });
       });
 
       

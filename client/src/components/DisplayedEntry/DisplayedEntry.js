@@ -147,7 +147,7 @@ export default class DisplayedEntry extends Component {
             <h5>{description}</h5>
           </div>
         </div>
-      <div className="row">
+      <div className="row" id="currentEntry">
         <div className="col-md-12">
           <h1>{this.state.currentEntry.content}</h1>
         </div>
