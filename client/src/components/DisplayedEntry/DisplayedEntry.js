@@ -150,7 +150,12 @@ export default class DisplayedEntry extends Component {
         </div>
       <div className="row text-center my-2 p-1 border" id="currentEntry">
         <div className="col-md-12">
-          <h1>{this.state.currentEntry.content}</h1>
+          {this.state.currentEntry.content ? (
+            <h1>{this.state.currentEntry.content}</h1>
+          ) : (
+            <h1>No entry to display.... yet</h1>
+          )
+        }
         </div>
       </div>
       
@@ -197,7 +202,7 @@ export default class DisplayedEntry extends Component {
             data-toggle="modal"
             data-target="#entryModal"
           >
-            Create New Entry
+            New Entry
           </button>
           </div>
       </div>

@@ -1,36 +1,3 @@
-/* #storyHeader {
-    position: relative;
-    top: 10rem;
-    margin-right: auto;
-    margin-left: auto;
-    text-align: center;
-    justify-content: center;
-    border: .025rem solid blue;
-}
-
-#nextEntries {
-    position: relative;
-    top: 30rem;
-    margin: auto;
-    text-align: center;
-    justify-content: center;
-    border: .025rem solid blue;
-}
-
-#currentEntry {
-    position: relative;
-    top: 20rem;
-    margin: auto;
-    text-align: center;
-    justify-content: center;
-    border: .025rem solid blue;
-}
-
-#btnGuy {
-    position: relative;
-    top: 40rem;
-} */
-
 #displayContainer {
     margin-top: 100px;
 }
