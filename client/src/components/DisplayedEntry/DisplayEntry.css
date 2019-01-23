@@ -1,4 +1,4 @@
-#storyHeader {
+/* #storyHeader {
     position: relative;
     top: 10rem;
     margin-right: auto;
@@ -24,4 +24,13 @@
     text-align: center;
     justify-content: center;
     border: .025rem solid blue;
+}
+
+#btnGuy {
+    position: relative;
+    top: 40rem;
+} */
+
+#displayContainer {
+    margin-top: 100px;
 }

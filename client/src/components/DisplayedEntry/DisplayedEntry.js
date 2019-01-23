@@ -138,7 +138,8 @@ export default class DisplayedEntry extends Component {
     const { title, genre, description} = this.state.storyInfo
     
     return (
-      <div className="container">
+      <div className="container" id="displayContainer">
+        
         <div className="row" id="storyHeader">
           <div className="col-md-12"> 
             <h3>{title}</h3>
@@ -156,18 +157,23 @@ export default class DisplayedEntry extends Component {
 
         {this.state.currentEntry.nextEntryArray ? (
           this.state.currentEntry.nextEntryArray.map(entry => (
-            <div
-              key={entry._id}
-              className="container my-3 rounded border border-primary"
-              id="nextEntries"
-              onClick={() => this.entryClicked(entry._id)}
-            >
-              {entry.content}
+            
+           <div className="row"> 
+              <div
+                key={entry._id}
+                className="col-md-12 my-3 rounded border border-primary"
+                id="nextEntries"
+                onClick={() => this.entryClicked(entry._id)}
+              >
+                {entry.content}
+              </div>
             </div>
           ))
         ) : (
-          <div id="nextEntries" className="container p-2 my-3">
-            <h1>No Next Entries</h1>
+          <div className="row">
+            <div id="nextEntries" className="col-md-12 p-2 my-3">
+              <h1>No Next Entries</h1>
+            </div>
           </div>
         )}
 
@@ -183,15 +189,18 @@ export default class DisplayedEntry extends Component {
             </div>
           );
         })} */}
-
-        <button
-          type="button"
-          className="btn btn-primary my-2"
-          data-toggle="modal"
-          data-target="#entryModal"
-        >
-          Create New Entry
-        </button>
+      <div className="row" id="btnGuy">
+        <div className="col-md-12">
+          <button
+            type="button"
+            className="btn btn-primary my-2"
+            data-toggle="modal"
+            data-target="#entryModal"
+          >
+            Create New Entry
+          </button>
+          </div>
+      </div>
 
         <NewEntryModal
           newEntryContent={this.state.newEntryContent}
