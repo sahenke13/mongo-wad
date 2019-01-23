@@ -17,6 +17,7 @@ export default class DisplayedEntry extends Component {
   componentDidMount = () => {
     this.findStory(this.props.id);
     console.log("component did mount has fired");
+    console.log("this is the state SHAPE for reference (on mount)", this.state)
   };
 
   handleInputChange = event => {
@@ -34,7 +35,7 @@ export default class DisplayedEntry extends Component {
             return { storyInfo: res.data };
           },
           () => {
-            console.log("this is the storyInfo state", res.data);
+            console.log("this is the STORYINFO state", res.data);
           }
         );
       })
@@ -63,7 +64,7 @@ export default class DisplayedEntry extends Component {
   //I believe that previous entry Id is not right here.  It is always saving new entryies to the same first entry
   newEntrySubmit = () => {
     API.saveEntry({
-      storyId: null,
+      storyId: this.state.storyInfo._id,
       content: this.state.newEntryContent,
       previousEntryId: this.state.currentId
     })
