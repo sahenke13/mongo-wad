@@ -61,7 +61,7 @@ export default class DisplayedEntry extends Component {
   };
 
   //I believe that previous entry Id is not right here.  It is always saving new entryies to the same first entry
-  newEntry = () => {
+  newEntrySubmit = () => {
     API.saveEntry({
       storyId: null,
       content: this.state.newEntryContent,
