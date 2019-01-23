@@ -26,7 +26,6 @@
     "if-env": "^1.0.4",
     "mongoose": "^5.3.13",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "reactstrap": "^7.1.0"
+    "react-dom": "^16.7.0"
   }
 }
