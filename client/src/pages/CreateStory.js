@@ -69,7 +69,7 @@ export default class CreateStory extends Component {
                   rows="10"
                   onChange={this.handleInputChange}
                   className="form-control spacing"
-                  placeholder="Come up with a background for your story to kick things off!"
+                  placeholder="Write a description so everyone knows what your story is about!"
                 />
                 {/* Submit button */}
                 <button onClick={this.handleStorySubmit}>Submit</button>
