@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./DisplayEntry.css";
 import NewEntryModal from "../NewEntry";
 import API from "../../utils/API";
-import { Link } from "react-router-dom";
+
 
 export default class DisplayedEntry extends Component {
   state = {
