@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import MainPageBody from '../components/MainPageBody/MainPageBody'
 
-class MainPage extends React.Component{
+export default class MainPage extends Component {
 
 
 render() {
@@ -16,4 +16,3 @@ render() {
 
 }
 
-export default MainPage;

@@ -5,15 +5,13 @@ import NavBar from "./components/NavBar/Header";
 import BrowseStories from "./pages/BrowseStories";
 import CreateStory from "./pages/CreateStory";
 import CurrentEntryPage from "./pages/CurrentEntryPage";
-import Footer from "./components/Footer/Footer"
-import Layout from "./Layout"
 import "./App.css";
 
 const App = () => (
-<Layout>
+
   <Router>
     <div>
-
+    <NavBar />
       <Switch>
         <Route exact path="/" component={MainPage} />
         <Route exact path="/browseStories" component={BrowseStories} />
@@ -23,7 +21,6 @@ const App = () => (
 
     </div>
   </Router>
-  </Layout>
 );
 
 export default App;

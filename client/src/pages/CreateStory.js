@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+// import { Redirect } from "react-router-dom";
 import API from "../utils/API";
 
 export default class CreateStory extends Component {
@@ -15,6 +16,9 @@ export default class CreateStory extends Component {
     });
   };
 
+  
+  
+
   handleStorySubmit = event => {  
     event.preventDefault();
     API.saveStory({
@@ -25,11 +29,15 @@ export default class CreateStory extends Component {
       // After creating the story, we use the promise to save the newly created StoryId to the State. We Can then use that to save along with Entry text.
       .then(resObj => {
         console.log(resObj)
-      });
 
-      
+        this.setState({
+            title: "",
+            genre: "",
+            description: ""
+          });
+        })
+    };
 
-  };
 
   render() {
     
@@ -69,7 +77,7 @@ export default class CreateStory extends Component {
                   rows="10"
                   onChange={this.handleInputChange}
                   className="form-control spacing"
-                  placeholder="Start your story here"
+                  placeholder="Write a description so everyone knows what your story is about!"
                 />
                 {/* Submit button */}
                 <button onClick={this.handleStorySubmit}>Submit</button>

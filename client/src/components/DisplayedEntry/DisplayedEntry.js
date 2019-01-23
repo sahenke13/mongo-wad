@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./DisplayEntry.css";
 import NewEntryModal from "../NewEntry";
 import API from "../../utils/API";
-import { Link } from "react-router-dom";
+
 
 export default class DisplayedEntry extends Component {
   state = {
@@ -61,7 +61,7 @@ export default class DisplayedEntry extends Component {
   };
 
   //I believe that previous entry Id is not right here.  It is always saving new entryies to the same first entry
-  newEntry = () => {
+  newEntrySubmit = () => {
     API.saveEntry({
       storyId: null,
       content: this.state.newEntryContent,
@@ -138,33 +138,47 @@ export default class DisplayedEntry extends Component {
     const { title, genre, description} = this.state.storyInfo
     
     return (
-      <div className="container">
-        <div className="container" id="currentEntry">
-          <h3>{title}</h3>
-          StoryId: {id}
-          <h4>{genre}</h4>
-          <h5>{description}</h5>
+      <div className="container" id="displayContainer">
+        
+        <div className="row text-center my-2 p-2 border" id="storyHeader">
+          <div className="col-md-12"> 
+            <h3>{title}</h3>
+            StoryId: {id}
+            <h4>{genre}</h4>
+            <h5>{description}</h5>
+          </div>
         </div>
-      
-      <div className="container">
-        <h1>{this.state.currentEntry.content}</h1>
+      <div className="row text-center my-2 p-1 border" id="currentEntry">
+        <div className="col-md-12">
+          {this.state.currentEntry.content ? (
+            <h1>{this.state.currentEntry.content}</h1>
+          ) : (
+            <h1>No entry to display.... yet</h1>
+          )
+        }
+        </div>
       </div>
       
 
         {this.state.currentEntry.nextEntryArray ? (
           this.state.currentEntry.nextEntryArray.map(entry => (
-            <div
-              key={entry._id}
-              className="container my-3 rounded border border-primary"
-              id="nextEntries"
-              onClick={() => this.entryClicked(entry._id)}
-            >
-              {entry.content}
+            
+           <div className="row my-2 p-2 text-center border"> 
+              <div
+                key={entry._id}
+                className="col-md-12 my-3 rounded border border-primary"
+                id="nextEntries"
+                onClick={() => this.entryClicked(entry._id)}
+              >
+                {entry.content}
+              </div>
             </div>
           ))
         ) : (
-          <div className="container p-2 my-3">
-            <h1>No Next Entries</h1>
+          <div className="row my-2 text-center border">
+            <div id="nextEntries" className="col-md-12 p-2 my-3">
+              <h1>No Next Entries</h1>
+            </div>
           </div>
         )}
 
@@ -180,15 +194,18 @@ export default class DisplayedEntry extends Component {
             </div>
           );
         })} */}
-
-        <button
-          type="button"
-          className="btn btn-primary my-2"
-          data-toggle="modal"
-          data-target="#entryModal"
-        >
-          Create New Entry
-        </button>
+      <div className="row" id="btnGuy">
+        <div className="col-md-12">
+          <button
+            type="button"
+            className="btn btn-primary my-2"
+            data-toggle="modal"
+            data-target="#entryModal"
+          >
+            New Entry
+          </button>
+          </div>
+      </div>
 
         <NewEntryModal
           newEntryContent={this.state.newEntryContent}
