@@ -167,11 +167,11 @@ export default class DisplayedEntry extends Component {
             <div className="row my-2 p-2 text-center border">
               <div
                 key={entry._id}
-                className="col-md-12 my-3 rounded border border-primary"
+                className="col-md-12"
                 id="nextEntries"
                 onClick={() => this.entryClicked(entry._id)}
               >
-                {entry.content}
+                {entry}
               </div>
             </div>
           ))
