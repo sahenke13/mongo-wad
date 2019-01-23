@@ -7,7 +7,7 @@ export default class DisplayedEntry extends Component {
   state = {
     storyInfo: [],
     currentEntry: [],
-    nextEntryArray: [],
+    // nextEntryArray: [],
     previousEntryId: "",
     newEntryContent: "",
     currentId: ""
@@ -73,7 +73,7 @@ export default class DisplayedEntry extends Component {
         this.setState({
           currentEntry: res.data,
           newEntryContent: "",
-          nextEntryArray: res.data.nextEntryArray,
+          // nextEntryArray: res.data.nextEntryArray,
           previousEntryId: res.data.previousEntryId
         });
 
@@ -113,12 +113,12 @@ export default class DisplayedEntry extends Component {
         console.log(res.data);
         this.setState(
           () => {
-            return { nextEntryArray: res.data };
+            return { currentEntry: res.data };
           },
           () => {
             console.log(
-              "this is the nextEntry Array state",
-              this.state.nextEntryArray
+              "this is the currentEntry state",
+              this.state.currentEntry
             );
           }
         );
