@@ -92,11 +92,6 @@ export default class DisplayedEntry extends Component {
           currentId: res.data._id
         });
       })
-
-      .then(res => {
-        console.log("updated entry data", res.data);
-      })
-
       .catch(err => console.log("this is an error", err));
   };
 
