@@ -139,15 +139,18 @@ export default class DisplayedEntry extends Component {
     
     return (
       <div className="container">
-        <div className="container" id="currentEntry">
-          <h3>{title}</h3>
-          StoryId: {id}
-          <h4>{genre}</h4>
-          <h5>{description}</h5>
+        <div className="row" id="storyHeader">
+          <div className="col-md-12"> 
+            <h3>{title}</h3>
+            StoryId: {id}
+            <h4>{genre}</h4>
+            <h5>{description}</h5>
+          </div>
         </div>
-      
-      <div className="container">
-        <h1>{this.state.currentEntry.content}</h1>
+      <div className="row">
+        <div className="col-md-12">
+          <h1>{this.state.currentEntry.content}</h1>
+        </div>
       </div>
       
 
@@ -163,7 +166,7 @@ export default class DisplayedEntry extends Component {
             </div>
           ))
         ) : (
-          <div className="container p-2 my-3">
+          <div id="nextEntries" className="container p-2 my-3">
             <h1>No Next Entries</h1>
           </div>
         )}

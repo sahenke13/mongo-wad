@@ -7,10 +7,6 @@ router
   .post(entryController.create);
 
 router.route("/root/:storyId").get(entryController.findRootEntry);
-
-router
-  .route("/next/:nextEntriesArray")
-  .get(entryController.findNextEntries)
   
 router
   .route("/:id")
