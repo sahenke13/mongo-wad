@@ -140,7 +140,7 @@ export default class DisplayedEntry extends Component {
     return (
       <div className="container" id="displayContainer">
         
-        <div className="row" id="storyHeader">
+        <div className="row text-center my-2 p-2 border" id="storyHeader">
           <div className="col-md-12"> 
             <h3>{title}</h3>
             StoryId: {id}
@@ -148,7 +148,7 @@ export default class DisplayedEntry extends Component {
             <h5>{description}</h5>
           </div>
         </div>
-      <div className="row" id="currentEntry">
+      <div className="row text-center my-2 p-1 border" id="currentEntry">
         <div className="col-md-12">
           <h1>{this.state.currentEntry.content}</h1>
         </div>
@@ -158,7 +158,7 @@ export default class DisplayedEntry extends Component {
         {this.state.currentEntry.nextEntryArray ? (
           this.state.currentEntry.nextEntryArray.map(entry => (
             
-           <div className="row"> 
+           <div className="row my-2 p-2 text-center border"> 
               <div
                 key={entry._id}
                 className="col-md-12 my-3 rounded border border-primary"
@@ -170,7 +170,7 @@ export default class DisplayedEntry extends Component {
             </div>
           ))
         ) : (
-          <div className="row">
+          <div className="row my-2 text-center border">
             <div id="nextEntries" className="col-md-12 p-2 my-3">
               <h1>No Next Entries</h1>
             </div>
