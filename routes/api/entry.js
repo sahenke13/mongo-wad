@@ -6,13 +6,13 @@ router
   .get(entryController.findAll)
   .post(entryController.create);
 
-router.route("/root/:storyId").get(entryController.findRootEntry);
+router.route("/root/:storyId").get(entryController.findRootEntries);
 
 router
   .route("/:id")
   .put(entryController.update)
   .delete(entryController.remove)
-  .get(entryController.findAll);
+  .get(entryController.findById);
 
 router.route("/byuser/:userId").get(entryController.findByUser);
 

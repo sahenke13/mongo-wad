@@ -6,7 +6,7 @@ import API from "../../utils/API";
 export default class DisplayedEntry extends Component {
   state = {
     storyInfo: [],
-    currentEntry: [],
+    currentEntry: "",
     firstEntriesArray: [],
     previousEntryId: "",
     newEntryContent: "",
@@ -16,6 +16,7 @@ export default class DisplayedEntry extends Component {
   componentDidMount = () => {
     this.findStory(this.props.id);
     console.log("component did mount has fired");
+    console.log("this is the initial state", this.state)
   };
 
   handleInputChange = event => {
@@ -96,7 +97,7 @@ export default class DisplayedEntry extends Component {
 
   entryClicked = id => {
     console.log("id :", id);
-    this.setState({ currentId: id }, () => this.updateCurrentEntry(id));
+    this.setState({ currentId: id, firstEntriesArray: [] }, () => this.updateCurrentEntry(id));
   };
 
   //I believe displayEntry should be update Entry here
@@ -104,15 +105,15 @@ export default class DisplayedEntry extends Component {
     console.log("update current entry id: ", id);
     API.displayEntry(id)
       .then(res => {
-        console.log(res.data);
+        console.log("result object from displayEntry API call", res.data);
         this.setState(
           () => {
             return { currentEntry: res.data };
           },
           () => {
             console.log(
-              "this is the currentEntry state",
-              this.state.currentEntry
+              "this is the after updating current entry state",
+              this.state
             );
           }
         );
@@ -143,6 +144,23 @@ export default class DisplayedEntry extends Component {
             )}
           </div>
         </div>
+
+        {this.state.currentEntry.length? ( 
+            <div id="noRoot"></div>
+          ) : (
+            this.state.firstEntriesArray.map(rootEntry => (
+              <div className = "row my-2 p-2 text-center border">
+                <div 
+                  key={rootEntry._id}
+                  className="col-md-12 my-3 rounded border border-primary"
+                  id="rootEntries"
+                  onClick={() => this.entryClicked(rootEntry._id)} >
+                  {rootEntry.content}
+                </div>
+              </div>
+            ))
+          )}
+
 
         {this.state.currentEntry.nextEntryArray ? (
           this.state.currentEntry.nextEntryArray.map(entry => (

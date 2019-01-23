@@ -11,7 +11,6 @@ module.exports = {
   findAll: function(req, res) {
     console.log("req.params: ", req.params);
     db.Entry.find({ previousEntryId: req.params.id })
-      .sort()
       .then(dbModel => {
         console.log("dbmodel is: ", dbModel);
         res.json(dbModel);
@@ -27,7 +26,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  findRootEntry: function(req, res) {
+  findRootEntries: function(req, res) {
     db.Entry.find({ storyId: req.params.storyId })
       .then(dbModel => {
         res.json(dbModel);
