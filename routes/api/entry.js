@@ -7,7 +7,7 @@ router
   .post(entryController.create);
 
 router.route("/root/:storyId").get(entryController.findRootEntry);
-  
+
 router
   .route("/:id")
   .put(entryController.update)

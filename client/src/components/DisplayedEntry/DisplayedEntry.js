@@ -3,7 +3,6 @@ import "./DisplayEntry.css";
 import NewEntryModal from "../NewEntry";
 import API from "../../utils/API";
 
-
 export default class DisplayedEntry extends Component {
   state = {
     storyInfo: [],
@@ -25,7 +24,7 @@ export default class DisplayedEntry extends Component {
       [name]: value
     });
   };
-// maybe do something like this but instead of passing id thru pass thru nextEntryArray in params??
+  // maybe do something like this but instead of passing id thru pass thru nextEntryArray in params??
   findStory = id => {
     API.getStory(id)
       .then(res => {
@@ -69,42 +68,35 @@ export default class DisplayedEntry extends Component {
     })
       .then(res => {
         console.log("new entry data", res.data);
-        
+
         this.setState({
           currentEntry: res.data,
           newEntryContent: "",
           nextEntryArray: res.data.nextEntryArray,
           previousEntryId: res.data.previousEntryId
         });
-        
+
         let prevId = res.data.previousEntryId;
-        let currentId = res.data._id
-        
+        let currentId = res.data._id;
+
         API.updateEntry(prevId, {
           idToPush: currentId
-        })
-        
+        });
+
         this.setState({
           currentEntry: res.data,
           // nextEntryArray: res.data.nextEntryArray,
           previousEntryId: res.data.previousEntryId,
           newEntryContent: "",
           currentId: res.data._id
-        })
-
+        });
       })
 
       .then(res => {
         console.log("updated entry data", res.data);
-        
-        
-      
       })
 
-      
-
       .catch(err => console.log("this is an error", err));
-    
   };
 
   entryClicked = id => {
@@ -135,35 +127,31 @@ export default class DisplayedEntry extends Component {
 
   render() {
     const { id } = this.props;
-    const { title, genre, description} = this.state.storyInfo
-    
+    const { title, genre, description } = this.state.storyInfo;
+
     return (
       <div className="container" id="displayContainer">
-        
         <div className="row text-center my-2 p-2 border" id="storyHeader">
-          <div className="col-md-12"> 
+          <div className="col-md-12">
             <h3>{title}</h3>
             StoryId: {id}
             <h4>{genre}</h4>
             <h5>{description}</h5>
           </div>
         </div>
-      <div className="row text-center my-2 p-1 border" id="currentEntry">
-        <div className="col-md-12">
-          {this.state.currentEntry.content ? (
-            <h1>{this.state.currentEntry.content}</h1>
-          ) : (
-            <h1>No entry to display.... yet</h1>
-          )
-        }
+        <div className="row text-center my-2 p-1 border" id="currentEntry">
+          <div className="col-md-12">
+            {this.state.currentEntry.content ? (
+              <h1>{this.state.currentEntry.content}</h1>
+            ) : (
+              <h1>No entry to display.... yet</h1>
+            )}
+          </div>
         </div>
-      </div>
-      
 
         {this.state.currentEntry.nextEntryArray ? (
           this.state.currentEntry.nextEntryArray.map(entry => (
-            
-           <div className="row my-2 p-2 text-center border"> 
+            <div className="row my-2 p-2 text-center border">
               <div
                 key={entry._id}
                 className="col-md-12 my-3 rounded border border-primary"
@@ -194,18 +182,18 @@ export default class DisplayedEntry extends Component {
             </div>
           );
         })} */}
-      <div className="row" id="btnGuy">
-        <div className="col-md-12">
-          <button
-            type="button"
-            className="btn btn-primary my-2"
-            data-toggle="modal"
-            data-target="#entryModal"
-          >
-            New Entry
-          </button>
+        <div className="row" id="btnGuy">
+          <div className="col-md-12">
+            <button
+              type="button"
+              className="btn btn-primary my-2"
+              data-toggle="modal"
+              data-target="#entryModal"
+            >
+              New Entry
+            </button>
           </div>
-      </div>
+        </div>
 
         <NewEntryModal
           newEntryContent={this.state.newEntryContent}
