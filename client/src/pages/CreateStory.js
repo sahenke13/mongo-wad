@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-// import { Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import API from "../utils/API";
 
-export default class CreateStory extends Component {
+class CreateStory extends Component {
   state = {
     title: "",
     genre: "",
@@ -16,6 +16,9 @@ export default class CreateStory extends Component {
     });
   };
 
+  handleRedirect = () => {
+    this.props.history.push("/browseStories");
+  };
   handleStorySubmit = event => {
     event.preventDefault();
     API.saveStory({
@@ -27,11 +30,14 @@ export default class CreateStory extends Component {
       .then(resObj => {
         console.log(resObj);
 
-        this.setState({
-          title: "",
-          genre: "",
-          description: ""
-        });
+        this.setState(
+          {
+            title: "",
+            genre: "",
+            description: ""
+          },
+          () => this.handleRedirect()
+        );
       });
   };
 
@@ -88,3 +94,5 @@ export default class CreateStory extends Component {
     );
   }
 }
+
+export default withRouter(CreateStory);
