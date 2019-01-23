@@ -46,6 +46,7 @@ const newEntry = ({ newEntryContent, handleInputChange, newEntrySubmit }) => (
                 type="submit"
                 className="btn btn-primary my-2"
                 onClick={newEntrySubmit}
+                data-dismiss="modal"
               >
                 Submit
               </button>
