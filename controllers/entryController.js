@@ -27,7 +27,7 @@ module.exports = {
   },
 
   findRootEntries: function(req, res) {
-    db.Entry.find({ storyId: req.params.storyId })
+    db.Entry.find({ $and: [{ storyId: req.params.storyId }, {previousEntryId: null}] })
       .then(dbModel => {
         res.json(dbModel);
       })
