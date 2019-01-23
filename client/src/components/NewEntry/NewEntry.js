@@ -2,7 +2,7 @@ import React from "react";
 
 //this is the modal component for creating new entries.
 
-const newEntry = ({ newEntryContent, handleInputChange, newEntry }) => (
+const newEntry = ({ newEntryContent, handleInputChange, newEntrySubmit }) => (
   <div>
     <div
       className="modal fade"
@@ -45,7 +45,7 @@ const newEntry = ({ newEntryContent, handleInputChange, newEntry }) => (
               <button
                 type="submit"
                 className="btn btn-primary my-2"
-                onClick={newEntry}
+                onClick={newEntrySubmit}
               >
                 Submit
               </button>
