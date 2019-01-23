@@ -26,7 +26,7 @@ export default {
   getEntries: function() {
     return axios.get("/api/entry");
   },
-  displayRootEntry: function(storyId) {
+  displayRootEntries: function(storyId) {
     return axios.get("/api/entry/root/" + storyId);
   },
   displayEntry: function(entryId) {

@@ -6,8 +6,8 @@ import API from "../../utils/API";
 export default class DisplayedEntry extends Component {
   state = {
     storyInfo: [],
-    currentEntry: [],
-    nextEntryArray: [],
+    currentEntry: "",
+    firstEntriesArray: [],
     previousEntryId: "",
     newEntryContent: "",
     currentId: ""
@@ -16,6 +16,7 @@ export default class DisplayedEntry extends Component {
   componentDidMount = () => {
     this.findStory(this.props.id);
     console.log("component did mount has fired");
+    console.log("this is the initial state", this.state)
   };
 
   handleInputChange = event => {
@@ -33,38 +34,38 @@ export default class DisplayedEntry extends Component {
             return { storyInfo: res.data };
           },
           () => {
-            console.log("this is the storyInfo state", res.data);
+            console.log("this is the STORYINFO state", res.data);
           }
         );
       })
       .catch(err => console.log("this is an error", err));
 
-    // API.displayRootEntry(id).then(res => {
-    //   console.log("display root res.data:  ", res.data);
-    //   this.setState(
-    //     {
-    //       currentEntry: res.data[0]
-    //     },
-    //     () => {
-    //       console.log(
-    //         "this is the currentEntry state",
-    //         this.state.currentEntry
-    //       );
-    //       console.log(
-    //         "this is the nextEntryArray: ",
-    //         this.state.nextEntryArray
-    //       );
-    //     }
-    //   );
-    // });
+    API.displayRootEntries(id).then(res => {
+      console.log("display root res.data:  ", res.data);
+      this.setState(
+        {
+          firstEntriesArray: res.data
+        },
+        () => {
+          console.log(
+            "this is the currentEntry state",
+            this.state.currentEntry
+          );
+          console.log(
+            "this is the firstEntriesArray state: ",
+            this.state.firstEntriesArray
+          );
+        }
+      );
+    });
   };
 
   //I believe that previous entry Id is not right here.  It is always saving new entryies to the same first entry
   newEntrySubmit = () => {
     API.saveEntry({
-      storyId: null,
+      storyId: this.state.storyInfo._id,
       content: this.state.newEntryContent,
-      previousEntryId: this.state.currentId
+      previousEntryId: this.state.currentId ? this.state.currentId : null
     })
       .then(res => {
         console.log("new entry data", res.data);
@@ -72,15 +73,15 @@ export default class DisplayedEntry extends Component {
         this.setState({
           currentEntry: res.data,
           newEntryContent: "",
-          nextEntryArray: res.data.nextEntryArray,
+          // nextEntryArray: res.data.nextEntryArray,
           previousEntryId: res.data.previousEntryId
         });
 
         let prevId = res.data.previousEntryId;
-        let currentId = res.data._id;
+        let currentEntry = res.data
 
         API.updateEntry(prevId, {
-          idToPush: currentId
+          entryToPush: currentEntry
         });
 
         this.setState({
@@ -96,7 +97,7 @@ export default class DisplayedEntry extends Component {
 
   entryClicked = id => {
     console.log("id :", id);
-    this.setState({ currentId: id }, () => this.updateCurrentEntry(id));
+    this.setState({ currentId: id, firstEntriesArray: [] }, () => this.updateCurrentEntry(id));
   };
 
   //I believe displayEntry should be update Entry here
@@ -104,15 +105,15 @@ export default class DisplayedEntry extends Component {
     console.log("update current entry id: ", id);
     API.displayEntry(id)
       .then(res => {
-        console.log(res.data);
+        console.log("result object from displayEntry API call", res.data);
         this.setState(
           () => {
-            return { nextEntryArray: res.data };
+            return { currentEntry: res.data };
           },
           () => {
             console.log(
-              "this is the nextEntry Array state",
-              this.state.nextEntryArray
+              "this is the after updating current entry state",
+              this.state
             );
           }
         );
@@ -144,12 +145,29 @@ export default class DisplayedEntry extends Component {
           </div>
         </div>
 
+        {this.state.currentEntry.length? ( 
+            <div id="noRoot"></div>
+          ) : (
+            this.state.firstEntriesArray.map(rootEntry => (
+              <div className = "row my-2 p-2 text-center border">
+                <div 
+                  key={rootEntry._id}
+                  className="col-md-12 my-3 rounded border border-primary"
+                  id="rootEntries"
+                  onClick={() => this.entryClicked(rootEntry._id)} >
+                  {rootEntry.content}
+                </div>
+              </div>
+            ))
+          )}
+
+
         {this.state.currentEntry.nextEntryArray ? (
           this.state.currentEntry.nextEntryArray.map(entry => (
             <div className="row my-2 p-2 text-center border">
               <div
                 key={entry._id}
-                className="col-md-12 my-3 rounded border border-primary"
+                className="col-md-12"
                 id="nextEntries"
                 onClick={() => this.entryClicked(entry._id)}
               >

@@ -11,7 +11,6 @@ module.exports = {
   findAll: function(req, res) {
     console.log("req.params: ", req.params);
     db.Entry.find({ previousEntryId: req.params.id })
-      .sort()
       .then(dbModel => {
         console.log("dbmodel is: ", dbModel);
         res.json(dbModel);
@@ -27,8 +26,8 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  findRootEntry: function(req, res) {
-    db.Entry.find({ storyId: req.params.storyId })
+  findRootEntries: function(req, res) {
+    db.Entry.find({ $and: [{ storyId: req.params.storyId }, {previousEntryId: null}] })
       .then(dbModel => {
         res.json(dbModel);
       })
@@ -43,11 +42,11 @@ module.exports = {
   update: function(req, res) {
     db.Entry.updateOne(
       { _id: req.params.id },
-      { $push: { nextEntryArray: req.body.idToPush } },
+      { $push: { nextEntryArray: req.body.entryToPush } },
       function(err, raw) {
-        if (err) return handleError(err);
+        if (err) console.log(err);
         console.log("The raw response from Mongo was", raw);
-        console.log(req.body);
+        console.log("The request body.currentEntry is: ", req.body.entryToPush);
       }
     );
   },
