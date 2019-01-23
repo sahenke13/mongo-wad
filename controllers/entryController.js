@@ -45,7 +45,7 @@ module.exports = {
       { _id: req.params.id },
       { $push: { nextEntryArray: req.body.idToPush } },
       function(err, raw) {
-        if (err) return handleError(err);
+        if (err) console.log(err);
         console.log("The raw response from Mongo was", raw);
         console.log(req.body);
       }

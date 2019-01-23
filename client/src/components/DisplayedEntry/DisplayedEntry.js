@@ -7,7 +7,7 @@ export default class DisplayedEntry extends Component {
   state = {
     storyInfo: [],
     currentEntry: [],
-    // nextEntryArray: [],
+    firstEntriesArray: [],
     previousEntryId: "",
     newEntryContent: "",
     currentId: ""
@@ -16,7 +16,6 @@ export default class DisplayedEntry extends Component {
   componentDidMount = () => {
     this.findStory(this.props.id);
     console.log("component did mount has fired");
-    console.log("this is the state SHAPE for reference (on mount)", this.state)
   };
 
   handleInputChange = event => {
@@ -44,7 +43,7 @@ export default class DisplayedEntry extends Component {
       console.log("display root res.data:  ", res.data);
       this.setState(
         {
-          currentEntry: res.data
+          firstEntriesArray: res.data
         },
         () => {
           console.log(
@@ -52,8 +51,8 @@ export default class DisplayedEntry extends Component {
             this.state.currentEntry
           );
           console.log(
-            "this is the nextEntryArray: ",
-            this.state.nextEntryArray
+            "this is the firstEntriesArray state: ",
+            this.state.firstEntriesArray
           );
         }
       );
@@ -65,7 +64,7 @@ export default class DisplayedEntry extends Component {
     API.saveEntry({
       storyId: this.state.storyInfo._id,
       content: this.state.newEntryContent,
-      previousEntryId: this.state.currentId
+      previousEntryId: this.state.currentId ? this.state.currentId : null
     })
       .then(res => {
         console.log("new entry data", res.data);
