@@ -8,7 +8,7 @@ export default class DisplayedEntry extends Component {
     storyInfo: [],
     currentEntry: "",
     firstEntriesArray: [],
-    previousEntryId: "",
+    previousEntryId: null,
     newEntryContent: "",
     currentId: ""
   };
@@ -16,7 +16,7 @@ export default class DisplayedEntry extends Component {
   componentDidMount = () => {
     this.findStory(this.props.id);
     console.log("component did mount has fired");
-    console.log("this is the initial state", this.state)
+    console.log("this is the initial state", this.state);
   };
 
   handleInputChange = event => {
@@ -78,7 +78,7 @@ export default class DisplayedEntry extends Component {
         });
 
         let prevId = res.data.previousEntryId;
-        let currentEntry = res.data
+        let currentEntry = res.data;
 
         API.updateEntry(prevId, {
           entryToPush: currentEntry
@@ -97,7 +97,9 @@ export default class DisplayedEntry extends Component {
 
   entryClicked = id => {
     console.log("id :", id);
-    this.setState({ currentId: id, firstEntriesArray: [] }, () => this.updateCurrentEntry(id));
+    this.setState({ currentId: id, firstEntriesArray: [] }, () =>
+      this.updateCurrentEntry(id)
+    );
   };
 
   //I believe displayEntry should be update Entry here
@@ -112,7 +114,7 @@ export default class DisplayedEntry extends Component {
           },
           () => {
             console.log(
-              "this is the after updating current entry state",
+              "this is the state after updating current entry state",
               this.state
             );
           }
@@ -130,38 +132,31 @@ export default class DisplayedEntry extends Component {
         <div className="row text-center my-2 p-2 border" id="storyHeader">
           <div className="col-md-12">
             <h3>{title}</h3>
-            StoryId: {id}
             <h4>{genre}</h4>
             <h5>{description}</h5>
           </div>
         </div>
-        <div className="row text-center my-2 p-1 border" id="currentEntry">
-          <div className="col-md-12">
-            {this.state.currentEntry.content ? (
-              <h1>{this.state.currentEntry.content}</h1>
-            ) : (
-              <h1>No entry to display.... yet</h1>
-            )}
-          </div>
-        </div>
 
-        {this.state.currentEntry.length? ( 
-            <div id="noRoot"></div>
-          ) : (
-            this.state.firstEntriesArray.map(rootEntry => (
-              <div className = "row my-2 p-2 text-center border">
-                <div 
-                  key={rootEntry._id}
-                  className="col-md-12 my-3 rounded border border-primary"
-                  id="rootEntries"
-                  onClick={() => this.entryClicked(rootEntry._id)} >
-                  {rootEntry.content}
-                </div>
+        {this.state.currentId === "" ? (
+          <div className="container text-center">
+            <h3>Starting Entries</h3>
+            {this.state.firstEntriesArray.map(entry => (
+              <div
+                key={this.state.firstEntriesArray._id}
+                onClick={() => this.entryClicked(entry._id)}
+              >
+                {entry.content}
               </div>
-            ))
-          )}
+            ))}
+          </div>
+        ) : (
+          <div key={this.state.currentEntry._id} className="container">
+            <h3 className="text-center">Current Entry</h3>
+            <div>{this.state.currentEntry.content}</div>
+          </div>
+        )}
 
-
+        <h1 className="text-center my-3">Next Entries</h1>
         {this.state.currentEntry.nextEntryArray ? (
           this.state.currentEntry.nextEntryArray.map(entry => (
             <div className="row my-2 p-2 text-center border">
@@ -183,18 +178,6 @@ export default class DisplayedEntry extends Component {
           </div>
         )}
 
-        {/* {this.state.currentEntry.map(entry => {
-          return (
-            <div
-              key={entry._id}
-              className="container my-3 rounded border border-primary"
-              id="nextEntries"
-              onClick={() => this.entryClicked(entry._id)}
-            >
-              {entry.content}
-            </div>
-          );
-        })} */}
         <div className="row" id="btnGuy">
           <div className="col-md-12">
             <button
