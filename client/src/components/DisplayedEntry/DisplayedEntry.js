@@ -124,6 +124,14 @@ export default class DisplayedEntry extends Component {
       .catch(err => console.log("this is an error", err));
   };
 
+
+  backButton = () => {
+    
+  }
+
+
+
+
   render() {
     const { id } = this.props;
     const { title, genre, description } = this.state.storyInfo;
@@ -157,12 +165,21 @@ export default class DisplayedEntry extends Component {
             <div className="container border rounded m-2">
               {this.state.currentEntry.content}
             </div>
+            <button 
+              className="text-center btn btn-primary" 
+              type="button" 
+              onClick={() => this.backButton(id)}
+              >
+              Go back
+              </button>
           </div>
         )}
 
         <h1 className="text-center my-3">Next Entries</h1>
         <div className="container">
+          {/* does this.state.currentEntry.nextEntryArray exist? */}
           {this.state.currentEntry.nextEntryArray ? (
+            // If yes:
             this.state.currentEntry.nextEntryArray.map(entry => (
               <div className="row my-2 p-2 text-center border">
                 <div
@@ -175,6 +192,7 @@ export default class DisplayedEntry extends Component {
                 </div>
               </div>
             ))
+            // If no:
           ) : (
             <div className="row my-2 text-center border">
               <div id="nextEntries" className="col-md-12 p-2 my-3">
