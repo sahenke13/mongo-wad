@@ -69,13 +69,13 @@ export default class DisplayedEntry extends Component {
       previousEntryId: this.state.currentId ? this.state.currentId : null
     })
       .then(res => {
-        console.log("new entry data", res.data);
+        console.log("previousEntryId saved", res.data.previousEntryId)
 
         this.setState({
           currentEntry: res.data,
           newEntryContent: "",
-          // nextEntryArray: res.data.nextEntryArray,
-          previousEntryId: res.data.previousEntryId
+          previousEntryId: res.data.previousEntryId,
+          currentId: res.data._id
         });
 
         let prevId = res.data.previousEntryId;
@@ -83,14 +83,6 @@ export default class DisplayedEntry extends Component {
 
         API.updateEntry(prevId, {
           entryToPush: currentEntry
-        });
-
-        this.setState({
-          currentEntry: res.data,
-          // nextEntryArray: res.data.nextEntryArray,
-          previousEntryId: res.data.previousEntryId,
-          newEntryContent: "",
-          currentId: res.data._id
         });
       })
       .catch(err => console.log("this is an error", err));
@@ -103,7 +95,6 @@ export default class DisplayedEntry extends Component {
     );
   };
 
-  //I believe displayEntry should be update Entry here
   updateCurrentEntry = id => {
     console.log("update current entry id: ", id);
     API.displayEntry(id)
@@ -111,7 +102,10 @@ export default class DisplayedEntry extends Component {
         console.log("result object from displayEntry API call", res.data);
         this.setState(
           () => {
-            return { currentEntry: res.data };
+            return { 
+              currentEntry: res.data,
+              previousEntryId: res.data.previousEntryId
+             };
           },
           () => {
             console.log(
@@ -125,8 +119,13 @@ export default class DisplayedEntry extends Component {
   };
 
 
-  backButton = () => {
-    
+  backButtonClicked = () => {
+    this.setState({
+      currentId: this.state.previousEntryId
+    },
+      this.updateCurrentEntry(this.state.previousEntryId)
+    );
+    console.log("after back button clicked....", this.state.currentId)
   }
 
 
@@ -168,7 +167,7 @@ export default class DisplayedEntry extends Component {
             <button 
               className="text-center btn btn-primary" 
               type="button" 
-              onClick={() => this.backButton(id)}
+              onClick={() => {this.backButtonClicked(); console.log("clicked back button")}}
               >
               Go back
               </button>
