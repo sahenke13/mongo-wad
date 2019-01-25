@@ -127,15 +127,17 @@ export default class DisplayedEntry extends Component {
 
   backButtonClicked = () => {
     let yourStoryArray = this.state.yourStory;
-    yourStoryArray.pop();
-    yourStoryArray.pop();
+    yourStoryArray.splice(-2, 2);
 
     this.setState(
       {
         yourStory: yourStoryArray,
         currentId: this.state.previousEntryId
       },
-      () => this.updateCurrentEntry(this.state.previousEntryId)
+
+      () => {
+        this.updateCurrentEntry(this.state.previousEntryId);
+      }
     );
     console.log("after back button clicked....", this.state.currentId);
   };
