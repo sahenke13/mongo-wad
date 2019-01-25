@@ -5,6 +5,7 @@ import API from "../../utils/API";
 
 export default class DisplayedEntry extends Component {
   state = {
+    yourStory: [],
     storyInfo: [],
     currentEntry: "",
     firstEntriesArray: [],
@@ -138,10 +139,11 @@ export default class DisplayedEntry extends Component {
         </div>
 
         {this.state.currentId === "" ? (
-          <div className="container text-center">
+          <div className="container m-1">
             <h3>Starting Entries</h3>
             {this.state.firstEntriesArray.map(entry => (
               <div
+                className="border my-3 rounded p-2"
                 key={this.state.firstEntriesArray._id}
                 onClick={() => this.entryClicked(entry._id)}
               >
@@ -150,33 +152,37 @@ export default class DisplayedEntry extends Component {
             ))}
           </div>
         ) : (
-          <div key={this.state.currentEntry._id} className="container">
+          <div key={this.state.currentEntry._id} className="container border ">
             <h3 className="text-center">Current Entry</h3>
-            <div>{this.state.currentEntry.content}</div>
+            <div className="container border rounded m-2">
+              {this.state.currentEntry.content}
+            </div>
           </div>
         )}
 
         <h1 className="text-center my-3">Next Entries</h1>
-        {this.state.currentEntry.nextEntryArray ? (
-          this.state.currentEntry.nextEntryArray.map(entry => (
-            <div className="row my-2 p-2 text-center border">
-              <div
-                key={entry._id}
-                className="col-md-12"
-                id="nextEntries"
-                onClick={() => this.entryClicked(entry._id)}
-              >
-                {entry.content}
+        <div className="container">
+          {this.state.currentEntry.nextEntryArray ? (
+            this.state.currentEntry.nextEntryArray.map(entry => (
+              <div className="row my-2 p-2 text-center border">
+                <div
+                  key={entry._id}
+                  className="col-md-12"
+                  id="nextEntries"
+                  onClick={() => this.entryClicked(entry._id)}
+                >
+                  {entry.content}
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="row my-2 text-center border">
+              <div id="nextEntries" className="col-md-12 p-2 my-3">
+                <h1>No Next Entries</h1>
               </div>
             </div>
-          ))
-        ) : (
-          <div className="row my-2 text-center border">
-            <div id="nextEntries" className="col-md-12 p-2 my-3">
-              <h1>No Next Entries</h1>
-            </div>
-          </div>
-        )}
+          )}
+        </div>
 
         <div className="row" id="btnGuy">
           <div className="col-md-12">
