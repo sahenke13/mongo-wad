@@ -90,7 +90,8 @@ export default class DisplayedEntry extends Component {
 
   entryClicked = id => {
     console.log("id :", id);
-    this.setState({ currentId: id, firstEntriesArray: [] }, () =>
+    this.setState({
+      currentId: id}, () =>
       this.updateCurrentEntry(id)
     );
   };
