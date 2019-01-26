@@ -66,17 +66,19 @@ export default class DisplayedEntry extends Component {
     API.saveEntry({
       storyId: this.state.storyInfo._id,
       content: this.state.newEntryContent,
-      previousEntryId: this.state.currentId ? this.state.currentId : ""
+      previousEntryId: this.state.currentId ? this.state.currentId : null
     })
       .then(res => {
         console.log("previousEntryId saved", res.data.previousEntryId);
         console.log("res.data: ", res.data);
-
+        let item = res.data;
+        let yourStoryArray = [...this.state.yourStory, item];
         this.setState({
           currentEntry: res.data,
           newEntryContent: "",
           previousEntryId: res.data.previousEntryId,
-          currentId: res.data._id
+          currentId: res.data._id,
+          yourStory: yourStoryArray
         });
 
         let prevId = res.data.previousEntryId;
@@ -91,9 +93,10 @@ export default class DisplayedEntry extends Component {
 
   entryClicked = id => {
     console.log("id :", id);
-    this.setState({ currentId: id, firstEntriesArray: [] }, () =>
-      this.updateCurrentEntry(id)
-    );
+    this.setState({ previousEntryArray: [], currentId: id }, () => {
+      this.updateCurrentEntry(id);
+      console.log(id);
+    });
   };
 
   updateCurrentEntry = id => {
