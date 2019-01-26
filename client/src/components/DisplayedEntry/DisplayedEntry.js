@@ -17,7 +17,6 @@ export default class DisplayedEntry extends Component {
 
   componentDidMount = () => {
     this.findStory(this.props.id);
-    console.log("component did mount has fired");
     console.log("this is the initial state", this.state);
   };
 
@@ -67,7 +66,7 @@ export default class DisplayedEntry extends Component {
     API.saveEntry({
       storyId: this.state.storyInfo._id,
       content: this.state.newEntryContent,
-      previousEntryId: this.state.currentId ? this.state.currentId : null
+      previousEntryId: this.state.currentId ? this.state.currentId : ""
     })
       .then(res => {
         console.log("previousEntryId saved", res.data.previousEntryId);
@@ -124,21 +123,44 @@ export default class DisplayedEntry extends Component {
       })
       .catch(err => console.log("this is an error", err));
   };
+  backButtonUpdateCurrentEntry = id => {
+    let yourStoryArray = [...this.state.yourStory];
+    API.displayEntry(id).then(res => {
+      this.setState(() => {
+        return {
+          currentEntry: res.data,
+          previousEntryId: res.data.previousEntryId,
+          yourStory: yourStoryArray
+        };
+      });
+    });
+  };
 
   backButtonClicked = () => {
     let yourStoryArray = this.state.yourStory;
-    yourStoryArray.splice(-2, 2);
+    yourStoryArray.pop();
+    console.log("yourStroyArray is: ", yourStoryArray);
+    yourStoryArray.length === 0
+      ? this.setState(
+          {
+            currentId: "",
+            nextEntryArray: [],
+            currentEntry: ""
+          },
+          () => {
+            this.findStory(this.props.id);
+          }
+        )
+      : this.setState(
+          {
+            yourStory: yourStoryArray,
+            currentId: this.state.previousEntryId
+          },
 
-    this.setState(
-      {
-        yourStory: yourStoryArray,
-        currentId: this.state.previousEntryId
-      },
-
-      () => {
-        this.updateCurrentEntry(this.state.previousEntryId);
-      }
-    );
+          () => {
+            this.backButtonUpdateCurrentEntry(this.state.previousEntryId);
+          }
+        );
     console.log("after back button clicked....", this.state.currentId);
   };
 
