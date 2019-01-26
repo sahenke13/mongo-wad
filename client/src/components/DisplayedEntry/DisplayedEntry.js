@@ -123,6 +123,18 @@ export default class DisplayedEntry extends Component {
       })
       .catch(err => console.log("this is an error", err));
   };
+  backButtonUpdateCurrentEntry = id => {
+    let yourStoryArray = [...this.state.yourStory];
+    API.displayEntry(id).then(res => {
+      this.setState(() => {
+        return {
+          currentEntry: res.data,
+          previousEntryId: res.data.previousEntryId,
+          yourStory: yourStoryArray
+        };
+      });
+    });
+  };
 
   backButtonClicked = () => {
     let yourStoryArray = this.state.yourStory;
@@ -146,7 +158,7 @@ export default class DisplayedEntry extends Component {
           },
 
           () => {
-            this.findStory(this.props.Id);
+            this.backButtonUpdateCurrentEntry(this.state.previousEntryId);
           }
         );
     console.log("after back button clicked....", this.state.currentId);
