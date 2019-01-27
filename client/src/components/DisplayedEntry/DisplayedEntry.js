@@ -11,7 +11,8 @@ export default class DisplayedEntry extends Component {
     currentEntry: "",
     firstEntriesArray: [],
     previousEntryId: null,
-    currentId: ""
+    currentId: "",
+    newEntryContent: ""
   };
 
   componentDidMount = () => {
@@ -79,14 +80,15 @@ export default class DisplayedEntry extends Component {
         API.updateEntry(prevId, {
           entryToPush: curEntry
         });
-        let item = res.data;
-        let yourStoryArray = [...this.state.yourStory, item];
+        // let item = res.data;
+        let yourStoryArray = [...this.state.yourStory, curEntry];
 
         this.setState({
           currentEntry: res.data,
           previousEntryId: res.data.previousEntryId,
           currentId: res.data._id,
-          yourStory: yourStoryArray
+          yourStory: yourStoryArray,
+          newEntryContent: ""
         });
       })
       .catch(err => console.log("this is an error", err));
