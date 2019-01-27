@@ -49,7 +49,7 @@ module.exports = {
         if (err) console.log(err);
         console.log("The raw response from Mongo was", raw);
       }
-    );
+    ).then(res.end());
   },
   remove: function(req, res) {
     db.Entry.findById({ _id: req.params.id })
