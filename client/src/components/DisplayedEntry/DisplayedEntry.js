@@ -11,13 +11,11 @@ export default class DisplayedEntry extends Component {
     currentEntry: "",
     firstEntriesArray: [],
     previousEntryId: null,
-    newEntryContent: "",
     currentId: ""
   };
 
   componentDidMount = () => {
     this.findStory(this.props.id);
-    console.log("component did mount has fired");
     console.log("this is the initial state", this.state);
   };
 
@@ -62,29 +60,33 @@ export default class DisplayedEntry extends Component {
     });
   };
 
-  //I believe that previous entry Id is not right here.  It is always saving new entryies to the same first entry
+  //NewEntrySubmit is for some reason pushing the new Entry twice into previousEntryArray.  Why???
   newEntrySubmit = () => {
+    let EntryId = this.state.currentId ? this.state.currentId : null;
     API.saveEntry({
       storyId: this.state.storyInfo._id,
       content: this.state.newEntryContent,
-      previousEntryId: this.state.currentId ? this.state.currentId : null
+      previousEntryId: EntryId
     })
       .then(res => {
-        console.log("previousEntryId saved", res.data.previousEntryId);
         console.log("res.data: ", res.data);
+        console.log("res.data.currentEntry :", res.data.currentEntry);
+        let prevId = res.data.previousEntryId;
+        let curEntry = res.data;
+
+        console.log("curEntry: ", curEntry);
+
+        API.updateEntry(prevId, {
+          entryToPush: curEntry
+        });
+        let item = res.data;
+        let yourStoryArray = [...this.state.yourStory, item];
 
         this.setState({
           currentEntry: res.data,
-          newEntryContent: "",
           previousEntryId: res.data.previousEntryId,
-          currentId: res.data._id
-        });
-
-        let prevId = res.data.previousEntryId;
-        let currentEntry = res.data;
-
-        API.updateEntry(prevId, {
-          entryToPush: currentEntry
+          currentId: res.data._id,
+          yourStory: yourStoryArray
         });
       })
       .catch(err => console.log("this is an error", err));
@@ -92,10 +94,10 @@ export default class DisplayedEntry extends Component {
 
   entryClicked = id => {
     console.log("id :", id);
-    this.setState({
-      currentId: id}, () =>
-      this.updateCurrentEntry(id)
-    );
+    this.setState({ previousEntryArray: [], currentId: id }, () => {
+      this.updateCurrentEntry(id);
+      console.log(id);
+    });
   };
 
   updateCurrentEntry = id => {
@@ -125,19 +127,44 @@ export default class DisplayedEntry extends Component {
       })
       .catch(err => console.log("this is an error", err));
   };
+  backButtonUpdateCurrentEntry = id => {
+    let yourStoryArray = [...this.state.yourStory];
+    API.displayEntry(id).then(res => {
+      let item = res.data;
+      console.log("back button item: ", item);
+      this.setState({
+        currentEntry: item,
+        previousEntryId: item.previousEntryId,
+        yourStory: yourStoryArray
+      });
+    });
+  };
 
   backButtonClicked = () => {
     let yourStoryArray = this.state.yourStory;
     yourStoryArray.pop();
-    yourStoryArray.pop();
+    console.log("yourStroyArray is: ", yourStoryArray);
+    yourStoryArray.length === 0
+      ? this.setState(
+          {
+            currentId: "",
+            nextEntryArray: [],
+            currentEntry: ""
+          },
+          () => {
+            this.findStory(this.props.id);
+          }
+        )
+      : this.setState(
+          {
+            yourStory: yourStoryArray,
+            currentId: this.state.previousEntryId
+          },
 
-    this.setState(
-      {
-        yourStory: yourStoryArray,
-        currentId: this.state.previousEntryId
-      },
-      () => this.updateCurrentEntry(this.state.previousEntryId)
-    );
+          () => {
+            this.backButtonUpdateCurrentEntry(this.state.previousEntryId);
+          }
+        );
     console.log("after back button clicked....", this.state.currentId);
   };
 
@@ -196,6 +223,7 @@ export default class DisplayedEntry extends Component {
             {/* does this.state.currentEntry.nextEntryArray exist? */}
             {this.state.currentEntry.nextEntryArray ? (
               // If yes:
+
               this.state.currentEntry.nextEntryArray.map(entry => (
                 <div className="row my-2 p-2 text-center border">
                   <div
