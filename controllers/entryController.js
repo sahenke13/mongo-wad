@@ -27,7 +27,9 @@ module.exports = {
   },
 
   findRootEntries: function(req, res) {
-    db.Entry.find({ $and: [{ storyId: req.params.storyId }, {previousEntryId: null}] })
+    db.Entry.find({
+      $and: [{ storyId: req.params.storyId }, { previousEntryId: null }]
+    })
       .then(dbModel => {
         res.json(dbModel);
       })
@@ -48,7 +50,9 @@ module.exports = {
         console.log("The raw response from Mongo was", raw);
         console.log("The request body.currentEntry is: ", req.body.entryToPush);
       }
-    );
+    ).then(dbModel => {
+      res.json(dbModel);
+    });
   },
   remove: function(req, res) {
     db.Entry.findById({ _id: req.params.id })
