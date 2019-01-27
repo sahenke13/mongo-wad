@@ -42,6 +42,9 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
+    console.log("req.body in update entryController: ", req.body);
+    console.log("req.params in update entryController: ", req.params);
+
     db.Entry.updateOne(
       { _id: req.params.id },
       { $push: { nextEntryArray: req.body.entryToPush } },
@@ -50,8 +53,8 @@ module.exports = {
         console.log("The raw response from Mongo was", raw);
         console.log("The request body.currentEntry is: ", req.body.entryToPush);
       }
-    ).then(dbModel => {
-      res.json(dbModel);
+    ).then(() => {
+      res.json();
     });
   },
   remove: function(req, res) {

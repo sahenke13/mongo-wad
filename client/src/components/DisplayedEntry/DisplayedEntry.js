@@ -60,7 +60,7 @@ export default class DisplayedEntry extends Component {
     });
   };
 
-  //I believe that previous entry Id is not right here.  It is always saving new entryies to the same first entry
+  //NewEntrySubmit is for some reason pushing the new Entry twice into previousEntryArray.  Why???
   newEntrySubmit = () => {
     let EntryId = this.state.currentId ? this.state.currentId : null;
     API.saveEntry({
@@ -70,23 +70,23 @@ export default class DisplayedEntry extends Component {
     })
       .then(res => {
         console.log("res.data: ", res.data);
+        console.log("res.data.currentEntry :", res.data.currentEntry);
+        let prevId = res.data.previousEntryId;
+        let curEntry = res.data;
+
+        console.log("curEntry: ", curEntry);
+
+        API.updateEntry(prevId, {
+          entryToPush: curEntry
+        });
         let item = res.data;
         let yourStoryArray = [...this.state.yourStory, item];
+
         this.setState({
           currentEntry: res.data,
           previousEntryId: res.data.previousEntryId,
           currentId: res.data._id,
           yourStory: yourStoryArray
-        });
-
-        let prevId = res.data.previousEntryId;
-        let currentEntry = res.data;
-
-        // Something about this updateEntry is slow
-        API.updateEntry(prevId, {
-          entryToPush: currentEntry
-        }).then(res => {
-          console.log("api.updateEntry: ", res.data);
         });
       })
       .catch(err => console.log("this is an error", err));
@@ -131,6 +131,7 @@ export default class DisplayedEntry extends Component {
     let yourStoryArray = [...this.state.yourStory];
     API.displayEntry(id).then(res => {
       let item = res.data;
+      console.log("back button item: ", item);
       this.setState({
         currentEntry: item,
         previousEntryId: item.previousEntryId,
@@ -222,6 +223,7 @@ export default class DisplayedEntry extends Component {
             {/* does this.state.currentEntry.nextEntryArray exist? */}
             {this.state.currentEntry.nextEntryArray ? (
               // If yes:
+
               this.state.currentEntry.nextEntryArray.map(entry => (
                 <div className="row my-2 p-2 text-center border">
                   <div
