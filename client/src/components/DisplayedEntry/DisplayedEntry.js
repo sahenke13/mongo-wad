@@ -11,7 +11,6 @@ export default class DisplayedEntry extends Component {
     currentEntry: "",
     firstEntriesArray: [],
     previousEntryId: null,
-    newEntryContent: "",
     currentId: ""
   };
 
@@ -63,19 +62,18 @@ export default class DisplayedEntry extends Component {
 
   //I believe that previous entry Id is not right here.  It is always saving new entryies to the same first entry
   newEntrySubmit = () => {
+    let EntryId = this.state.currentId ? this.state.currentId : null;
     API.saveEntry({
       storyId: this.state.storyInfo._id,
       content: this.state.newEntryContent,
-      previousEntryId: this.state.currentId ? this.state.currentId : null
+      previousEntryId: EntryId
     })
       .then(res => {
-        console.log("previousEntryId saved", res.data.previousEntryId);
         console.log("res.data: ", res.data);
         let item = res.data;
         let yourStoryArray = [...this.state.yourStory, item];
         this.setState({
           currentEntry: res.data,
-          newEntryContent: "",
           previousEntryId: res.data.previousEntryId,
           currentId: res.data._id,
           yourStory: yourStoryArray
@@ -84,8 +82,11 @@ export default class DisplayedEntry extends Component {
         let prevId = res.data.previousEntryId;
         let currentEntry = res.data;
 
+        // Something about this updateEntry is slow
         API.updateEntry(prevId, {
           entryToPush: currentEntry
+        }).then(res => {
+          console.log("api.updateEntry: ", res.data);
         });
       })
       .catch(err => console.log("this is an error", err));
@@ -129,12 +130,11 @@ export default class DisplayedEntry extends Component {
   backButtonUpdateCurrentEntry = id => {
     let yourStoryArray = [...this.state.yourStory];
     API.displayEntry(id).then(res => {
-      this.setState(() => {
-        return {
-          currentEntry: res.data,
-          previousEntryId: res.data.previousEntryId,
-          yourStory: yourStoryArray
-        };
+      let item = res.data;
+      this.setState({
+        currentEntry: item,
+        previousEntryId: item.previousEntryId,
+        yourStory: yourStoryArray
       });
     });
   };
