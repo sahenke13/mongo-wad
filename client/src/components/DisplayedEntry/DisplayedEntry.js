@@ -94,7 +94,7 @@ export default class DisplayedEntry extends Component {
 
   entryClicked = id => {
     console.log("id :", id);
-    this.setState({ previousEntryArray: [], currentId: id }, () => {
+    this.setState({ currentId: id }, () => {
       this.updateCurrentEntry(id);
       console.log(id);
     });
