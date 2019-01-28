@@ -1,3 +1,7 @@
 #displayContainer {
     margin-top: 100px;
 }
+
+.pointerGuy {
+    cursor: pointer;
+}

@@ -189,7 +189,7 @@ export default class DisplayedEntry extends Component {
               <h3 className="text-center text-white">Starting Entries</h3>
               {this.state.firstEntriesArray.map(entry => (
                 <div
-                  className="border my-3 bg-white rounded p-2"
+                  className="border pointerGuy my-3 bg-white rounded p-2"
                   key={this.state.firstEntriesArray._id}
                   onClick={() => this.entryClicked(entry._id)}
                 >
@@ -227,7 +227,7 @@ export default class DisplayedEntry extends Component {
               // If yes:
 
               this.state.currentEntry.nextEntryArray.map(entry => (
-                <div className="row my-2 p-2 bg-white text-center border">
+                <div className="row my-2 p-2 bg-white pointerGuy text-center border">
                   <div
                     key={entry._id}
                     className="col-md-12"
