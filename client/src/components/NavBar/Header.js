@@ -1,12 +1,13 @@
 import React from "react";
 import favicon from "./favicon.png";
+import "./Header.css"
 
 const Header = () => (
-  <div className="navbar fixed-top navbar-dark bg-primary">
+  <div className="navbar fixed-top navbar-dark">
     <div className="container">
       <a href="/" className="navbar-brand">
         <img src={favicon} alt="favicon" className="img-fluid" />
-        <span id="brand">Word-Wad</span>
+        <span id="brand">[word]:[wad]</span>
       </a>
       <ul className="navbar nav">
         <li className="nav-item">
