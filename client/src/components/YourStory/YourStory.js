@@ -6,7 +6,7 @@ export default function YourStory({ stories }) {
   return (
     <div>
       {stories.map(story => (
-        <div className="container border rounded my-3">{story.content}</div>
+        <div className="container border bg-white rounded my-3">{story.content}</div>
       ))}
     </div>
   );

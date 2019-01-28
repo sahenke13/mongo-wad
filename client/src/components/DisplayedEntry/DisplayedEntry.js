@@ -200,11 +200,11 @@ export default class DisplayedEntry extends Component {
           ) : (
             <div className="col-lg-6 m-2">
               <h3 className="text-center text-white">Current Entry</h3>
-              <div className="container border rounded my-3">
+              <div className="container border bg-white rounded my-3">
                 {this.state.currentEntry.content}
               </div>
               <button
-                className="text-center btn btn-primary"
+                className="text-center btn text-white submitGuy"
                 type="button"
                 onClick={() => {
                   this.backButtonClicked();
@@ -227,7 +227,7 @@ export default class DisplayedEntry extends Component {
               // If yes:
 
               this.state.currentEntry.nextEntryArray.map(entry => (
-                <div className="row my-2 p-2 text-center border">
+                <div className="row my-2 p-2 bg-white text-center border">
                   <div
                     key={entry._id}
                     className="col-md-12"
