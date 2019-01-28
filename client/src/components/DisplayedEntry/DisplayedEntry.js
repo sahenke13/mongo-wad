@@ -3,6 +3,10 @@ import "./DisplayEntry.css";
 import NewEntryModal from "../NewEntry";
 import API from "../../utils/API";
 import YourStory from "../YourStory";
+import StoryHeader from "../StoryHeader";
+import StartingEntries from "../StartingEntries";
+import CurrentEntry from "../CurrentEntry";
+import NextEntryArray from "../NextEntryArray";
 
 export default class DisplayedEntry extends Component {
   state = {
@@ -96,7 +100,7 @@ export default class DisplayedEntry extends Component {
 
   entryClicked = id => {
     console.log("id :", id);
-    this.setState({ previousEntryArray: [], currentId: id }, () => {
+    this.setState({ currentId: id }, () => {
       this.updateCurrentEntry(id);
       console.log(id);
     });
@@ -171,81 +175,46 @@ export default class DisplayedEntry extends Component {
   };
 
   render() {
-    const { id } = this.props;
     const { title, genre, description } = this.state.storyInfo;
+    const {
+      firstEntriesArray,
+      currentEntry,
+      yourStory,
+      currentId
+    } = this.state;
 
     return (
       <div className="container" id="displayContainer">
-        <div className="row text-center bg-white my-2 p-2 border" id="storyHeader">
-          <div className="col-md-12">
-            <h3>{title}</h3>
-            <h4>{genre}</h4>
-            <h5>{description}</h5>
-          </div>
-        </div>
+        {/* <StoryHeader title={title} genre={genre} description={description} /> */}
+        <StoryHeader title={title} genre={genre} description={description} />
         <div className="row">
           {this.state.currentId === "" ? (
             <div className="col-lg-6 m-1">
-              <h3 className="text-center text-white">Starting Entries</h3>
-              {this.state.firstEntriesArray.map(entry => (
-                <div
-                  className="border pointerGuy my-3 bg-white rounded p-2"
-                  key={this.state.firstEntriesArray._id}
-                  onClick={() => this.entryClicked(entry._id)}
-                >
-                  {entry.content}
-                </div>
-              ))}
+              <StartingEntries
+                firstEntriesArray={firstEntriesArray}
+                entryClicked={id => this.entryClicked(id)}
+              />
             </div>
           ) : (
             <div className="col-lg-6 m-2">
-              <h3 className="text-center text-white">Current Entry</h3>
-              <div className="container border bg-white rounded my-3">
-                {this.state.currentEntry.content}
-              </div>
-              <button
-                className="text-center btn text-white submitGuy"
-                type="button"
-                onClick={() => {
-                  this.backButtonClicked();
-                  console.log("clicked back button");
-                }}
-              >
-                Go back
-              </button>
+              <CurrentEntry
+                content={currentEntry.content}
+                backButton={this.backButtonClicked}
+              />
             </div>
           )}
           {/* add your story information below. Probably through a component that
            we pass props to. */}
           <div className="col-lg-5 m-2">
-            <h3 className="text-center text-white">YourStory</h3>
-            <YourStory stories={this.state.yourStory} />
+            <YourStory stories={yourStory} />
           </div>
           <div className="container">
             {/* does this.state.currentEntry.nextEntryArray exist? */}
-            {this.state.currentEntry.nextEntryArray ? (
-              // If yes:
-
-              this.state.currentEntry.nextEntryArray.map(entry => (
-                <div className="row my-2 p-2 bg-white pointerGuy text-center border">
-                  <div
-                    key={entry._id}
-                    className="col-md-12"
-                    id="nextEntries"
-                    onClick={() => this.entryClicked(entry._id)}
-                  >
-                    {entry.content}
-                  </div>
-                </div>
-              ))
-            ) : (
-              // If no:
-              <div className="row my-2 text-center border bg-white">
-                <div id="nextEntries" className="col-md-12 p-2 my-3">
-                  <h1>No Next Entries</h1>
-                </div>
-              </div>
-            )}
+            <NextEntryArray
+              nextEntryArray={currentEntry.nextEntryArray}
+              nextEntryClicked={id => this.entryClicked(id)}
+              currentId={currentId}
+            />
           </div>
         </div>
 
