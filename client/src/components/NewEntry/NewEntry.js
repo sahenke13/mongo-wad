@@ -44,7 +44,7 @@ const newEntry = ({ newEntryContent, handleInputChange, newEntrySubmit }) => (
               </button>
               <button
                 type="submit"
-                className="btn btn-primary my-2"
+                className="btn text-white submitGuy my-2"
                 onClick={newEntrySubmit}
                 data-dismiss="modal"
               >

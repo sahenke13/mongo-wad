@@ -49,7 +49,7 @@ class CreateStory extends Component {
         <br />
         <div className="container text-center" id="storyform">
           <div className="my-2">
-            <h1>Let's Create a Story</h1>
+            <h1 className="text-white">Let's Create a Story</h1>
           </div>
 
           <form className="form">
@@ -83,7 +83,7 @@ class CreateStory extends Component {
             />
             {/* Submit button */}
             <button
-              className="btn btn-success"
+              className="btn submitGuy text-white"
               onClick={this.handleStorySubmit}
             >
               Submit

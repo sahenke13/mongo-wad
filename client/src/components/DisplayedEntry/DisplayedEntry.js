@@ -176,7 +176,7 @@ export default class DisplayedEntry extends Component {
 
     return (
       <div className="container" id="displayContainer">
-        <div className="row text-center my-2 p-2 border" id="storyHeader">
+        <div className="row text-center bg-white my-2 p-2 border" id="storyHeader">
           <div className="col-md-12">
             <h3>{title}</h3>
             <h4>{genre}</h4>
@@ -186,10 +186,10 @@ export default class DisplayedEntry extends Component {
         <div className="row">
           {this.state.currentId === "" ? (
             <div className="col-lg-6 m-1">
-              <h3 className="text-center">Starting Entries</h3>
+              <h3 className="text-center text-white">Starting Entries</h3>
               {this.state.firstEntriesArray.map(entry => (
                 <div
-                  className="border my-3 rounded p-2"
+                  className="border my-3 bg-white rounded p-2"
                   key={this.state.firstEntriesArray._id}
                   onClick={() => this.entryClicked(entry._id)}
                 >
@@ -199,7 +199,7 @@ export default class DisplayedEntry extends Component {
             </div>
           ) : (
             <div className="col-lg-6 m-2">
-              <h3 className="text-center">Current Entry</h3>
+              <h3 className="text-center text-white">Current Entry</h3>
               <div className="container border rounded my-3">
                 {this.state.currentEntry.content}
               </div>
@@ -218,7 +218,7 @@ export default class DisplayedEntry extends Component {
           {/* add your story information below. Probably through a component that
            we pass props to. */}
           <div className="col-lg-5 m-2">
-            <h3 className="text-center">YourStory</h3>
+            <h3 className="text-center text-white">YourStory</h3>
             <YourStory stories={this.state.yourStory} />
           </div>
           <div className="container">
@@ -240,7 +240,7 @@ export default class DisplayedEntry extends Component {
               ))
             ) : (
               // If no:
-              <div className="row my-2 text-center border">
+              <div className="row my-2 text-center border bg-white">
                 <div id="nextEntries" className="col-md-12 p-2 my-3">
                   <h1>No Next Entries</h1>
                 </div>
@@ -253,7 +253,7 @@ export default class DisplayedEntry extends Component {
           <div className="col-md-12">
             <button
               type="button"
-              className="btn btn-primary my-2"
+              className="btn text-white submitGuy my-2"
               data-toggle="modal"
               data-target="#entryModal"
             >
