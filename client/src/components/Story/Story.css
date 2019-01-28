@@ -4,5 +4,11 @@
     margin: 1.5rem;
     border: .5rem solid black;
     cursor: pointer;
-
 }
+
+/* Set both title & genre text color */
+.titleGuy, 
+.genreGuy {
+    color: #607d8b
+}
+

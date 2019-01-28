@@ -1,14 +1,8 @@
-/* #mainPageBody {
-    position: relative;
-    padding-top: 10%;
-    border: .5rem solid black;
-} */
-
 #mainPageBody {
     position: relative;
     top: 15rem;
     width: 75%;
-    background: grey;
+    background:#424242;
     text-align: center;
     margin: auto;
 }

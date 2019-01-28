@@ -11,8 +11,8 @@ const Story = ({ title, id, genre }) => {
   return (
     <div className="card" id="storyBody">
       <div className="card-boby">
-        <h4 className="card-title">{title}</h4>
-        <h6>genre: {genre}</h6>
+        <h4 className="card-title titleGuy">{title}</h4>
+        <h6 className="genreGuy">genre: {genre}</h6>
       </div>
     </div>
   );
