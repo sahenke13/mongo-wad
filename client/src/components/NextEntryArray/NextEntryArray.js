@@ -11,14 +11,18 @@ export default function NextEntryArray({
         // If yes:
 
         nextEntryArray.map(entry => (
-          <div className="row my-2 p-2 bg-white pointerGuy text-center border">
+          <div className="row my-2 p-2 bg-white pointerGuy  border ">
             <div
               key={entry._id}
-              className="col-md-12"
+              className="col-md-12 text-justify-right"
               id="nextEntries"
               onClick={() => nextEntryClicked(entry._id)}
             >
               {entry.content}
+              <span className="align-middle float-right px-2 ">
+                <i className="fas fa-angle-down p-1" />
+                <i className="fas fa-angle-up  p-1" />
+              </span>
             </div>
           </div>
         ))
