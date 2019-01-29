@@ -20,8 +20,7 @@ export default class DisplayedEntry extends Component {
   };
 
   componentDidMount = () => {
-    this.findStory(this.props.id);
-    console.log("this is the initial state", this.state);
+    this.handleFindStory(this.props.id);
   };
 
   handleInputChange = event => {
@@ -31,42 +30,24 @@ export default class DisplayedEntry extends Component {
     });
   };
   // maybe do something like this but instead of passing id thru pass thru nextEntryArray in params??
-  findStory = id => {
+  handleFindStory = id => {
     API.getStory(id)
       .then(res => {
-        this.setState(
-          () => {
-            return { storyInfo: res.data };
-          },
-          () => {
-            console.log("this is the STORYINFO state", res.data);
-          }
-        );
+        this.setState(() => {
+          return { storyInfo: res.data };
+        });
       })
       .catch(err => console.log("this is an error", err));
 
     API.displayRootEntries(id).then(res => {
-      console.log("display root res.data:  ", res.data);
-      this.setState(
-        {
-          firstEntriesArray: res.data
-        },
-        () => {
-          console.log(
-            "this is the currentEntry state",
-            this.state.currentEntry
-          );
-          console.log(
-            "this is the firstEntriesArray state: ",
-            this.state.firstEntriesArray
-          );
-        }
-      );
+      this.setState({
+        firstEntriesArray: res.data
+      });
     });
   };
 
   //NewEntrySubmit is for some reason pushing the new Entry twice into previousEntryArray.  Why???
-  newEntrySubmit = () => {
+  handleNewEntrySubmit = () => {
     let EntryId = this.state.currentId ? this.state.currentId : null;
     API.saveEntry({
       storyId: this.state.storyInfo._id,
@@ -74,12 +55,8 @@ export default class DisplayedEntry extends Component {
       previousEntryId: EntryId
     })
       .then(res => {
-        console.log("res.data: ", res.data);
-        console.log("res.data.currentEntry :", res.data.currentEntry);
         let prevId = res.data.previousEntryId;
         let curEntry = res.data;
-
-        console.log("curEntry: ", curEntry);
 
         API.updateEntry(prevId, {
           entryToPush: curEntry
@@ -98,46 +75,32 @@ export default class DisplayedEntry extends Component {
       .catch(err => console.log("this is an error", err));
   };
 
-  entryClicked = id => {
-    console.log("id :", id);
+  handleEntryClicked = id => {
     this.setState({ currentId: id }, () => {
-      this.updateCurrentEntry(id);
-      console.log(id);
+      this.handleUpdateCurrentEntry(id);
     });
   };
 
-  updateCurrentEntry = id => {
-    console.log("update current entry id: ", id);
+  handleUpdateCurrentEntry = id => {
     API.displayEntry(id)
       .then(res => {
-        console.log("result object from displayEntry API call", res.data);
         let selectedSegment = res.data;
         let yourStoryArray = [...this.state.yourStory, selectedSegment];
 
-        this.setState(
-          () => {
-            return {
-              currentEntry: res.data,
-              previousEntryId: res.data.previousEntryId,
-              yourStory: yourStoryArray
-            };
-          },
-          () => {
-            console.log(
-              "this is the state after updating current entry state",
-              this.state
-            );
-            console.log("this is the yourStory Array: ", this.state.yourStory);
-          }
-        );
+        this.setState(() => {
+          return {
+            currentEntry: res.data,
+            previousEntryId: res.data.previousEntryId,
+            yourStory: yourStoryArray
+          };
+        });
       })
       .catch(err => console.log("this is an error", err));
   };
-  backButtonUpdateCurrentEntry = id => {
+  handleBackButtonUpdateCurrentEntry = id => {
     let yourStoryArray = [...this.state.yourStory];
     API.displayEntry(id).then(res => {
       let item = res.data;
-      console.log("back button item: ", item);
       this.setState({
         currentEntry: item,
         previousEntryId: item.previousEntryId,
@@ -146,10 +109,10 @@ export default class DisplayedEntry extends Component {
     });
   };
 
-  backButtonClicked = () => {
+  handleBackButtonClicked = () => {
     let yourStoryArray = this.state.yourStory;
     yourStoryArray.pop();
-    console.log("yourStroyArray is: ", yourStoryArray);
+
     yourStoryArray.length === 0
       ? this.setState(
           {
@@ -158,7 +121,7 @@ export default class DisplayedEntry extends Component {
             currentEntry: ""
           },
           () => {
-            this.findStory(this.props.id);
+            this.handleFindStory(this.props.id);
           }
         )
       : this.setState(
@@ -168,10 +131,9 @@ export default class DisplayedEntry extends Component {
           },
 
           () => {
-            this.backButtonUpdateCurrentEntry(this.state.previousEntryId);
+            this.handleBackButtonUpdateCurrentEntry(this.state.previousEntryId);
           }
         );
-    console.log("after back button clicked....", this.state.currentId);
   };
 
   render() {
@@ -192,14 +154,14 @@ export default class DisplayedEntry extends Component {
             <div className="col-lg-6 m-1">
               <StartingEntries
                 firstEntriesArray={firstEntriesArray}
-                entryClicked={id => this.entryClicked(id)}
+                entryClicked={id => this.handleEntryClicked(id)}
               />
             </div>
           ) : (
             <div className="col-lg-6 m-2">
               <CurrentEntry
                 content={currentEntry.content}
-                backButton={this.backButtonClicked}
+                backButton={this.handleBackButtonClicked}
               />
             </div>
           )}
@@ -212,7 +174,7 @@ export default class DisplayedEntry extends Component {
             {/* does this.state.currentEntry.nextEntryArray exist? */}
             <NextEntryArray
               nextEntryArray={currentEntry.nextEntryArray}
-              nextEntryClicked={id => this.entryClicked(id)}
+              nextEntryClicked={id => this.handleEntryClicked(id)}
               currentId={currentId}
             />
           </div>
@@ -234,7 +196,7 @@ export default class DisplayedEntry extends Component {
         <NewEntryModal
           newEntryContent={this.state.newEntryContent}
           handleInputChange={this.handleInputChange}
-          newEntrySubmit={this.newEntrySubmit}
+          newEntrySubmit={this.handleNewEntrySubmit}
         />
       </div>
     );

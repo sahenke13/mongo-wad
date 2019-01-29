@@ -4,10 +4,6 @@ import "./Story.css";
 // This is the story component that displays on StoryList
 
 const Story = ({ title, id, genre }) => {
-  console.log("title :", title);
-  console.log("id", id);
-  console.log("genre is: ", genre);
-
   return (
     <div className="card" id="storyBody">
       <div className="card-boby">
