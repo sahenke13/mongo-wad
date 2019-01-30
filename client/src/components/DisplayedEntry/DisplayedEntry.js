@@ -136,6 +136,13 @@ export default class DisplayedEntry extends Component {
         );
   };
 
+  handleUpVote = () => {
+    console.log("Up Vote Clicked");
+  };
+  handleDownVote = () => {
+    console.log("Down Vote Clicked");
+  };
+
   render() {
     const { title, genre, description } = this.state.storyInfo;
     const {
@@ -176,6 +183,8 @@ export default class DisplayedEntry extends Component {
               nextEntryArray={currentEntry.nextEntryArray}
               nextEntryClicked={id => this.handleEntryClicked(id)}
               currentId={currentId}
+              upVote={this.handleUpVote}
+              downVote={this.handleDownVote}
             />
           </div>
         </div>

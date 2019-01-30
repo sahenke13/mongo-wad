@@ -10,7 +10,6 @@ export default function CurrentEntry({ content, backButton }) {
         type="button"
         onClick={() => {
           backButton();
-          console.log("clicked back button");
         }}
       >
         Go back
