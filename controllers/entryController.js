@@ -44,6 +44,7 @@ module.exports = {
   update: function(req, res) {
     db.Entry.updateOne(
       { _id: req.params.id },
+      //maybe change this a little to allow me to push again using the update route
       { $push: { nextEntryArray: req.body.entryToPush } },
       function(err, raw) {
         if (err) console.log(err);
