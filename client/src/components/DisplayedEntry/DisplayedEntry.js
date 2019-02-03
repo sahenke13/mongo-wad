@@ -46,7 +46,7 @@ export default class DisplayedEntry extends Component {
     });
   };
 
-  //NewEntrySubmit is for some reason pushing the new Entry twice into previousEntryArray.  Why???
+  //need to set voteCount to 0?? grab votes??
   handleNewEntrySubmit = () => {
     let EntryId = this.state.currentId ? this.state.currentId : null;
     API.saveEntry({

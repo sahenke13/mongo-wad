@@ -22,13 +22,14 @@ export default function NextEntryArray({
               </span>
               <span className="align-middle float-right px-2 ">
                 <i
-                  className="fas fa-angle-down p-1 pointerGuy"
+                  className="fas fa-angle-down px-1 pointerGuy"
                   onClick={() => downVote()}
                 />
                 <i
-                  className="fas fa-angle-up  p-1 pointerGuy"
+                  className="fas fa-angle-up  px-1 pointerGuy"
                   onClick={() => upVote()}
                 />
+                <div className="mx-auto text-center">{entry.voteCount}</div>
               </span>
             </div>
           </div>
