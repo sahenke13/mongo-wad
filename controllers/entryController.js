@@ -45,7 +45,7 @@ module.exports = {
     db.Entry.updateOne(
       { _id: req.params.id },
       //maybe change this a little to allow me to push again using the update route
-      { $push: { nextEntryArray: req.body.entryToPush } },
+      { $push: req.body },
       function(err, raw) {
         if (err) console.log(err);
         console.log("The raw response from Mongo was", raw);

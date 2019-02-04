@@ -59,7 +59,7 @@ export default class DisplayedEntry extends Component {
         let curEntry = res.data;
 
         API.updateEntry(prevId, {
-          entryToPush: curEntry
+          nextEntryArray: curEntry
         });
         // let item = res.data;
         let yourStoryArray = [...this.state.yourStory, curEntry];
