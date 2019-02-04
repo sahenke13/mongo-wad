@@ -46,20 +46,23 @@ export default class DisplayedEntry extends Component {
     });
   };
 
-  //NewEntrySubmit is for some reason pushing the new Entry twice into previousEntryArray.  Why???
+  //need to set voteCount to 0?? grab votes??
   handleNewEntrySubmit = () => {
     let EntryId = this.state.currentId ? this.state.currentId : null;
     API.saveEntry({
       storyId: this.state.storyInfo._id,
       content: this.state.newEntryContent,
-      previousEntryId: EntryId
+      previousEntryId: EntryId,
+      voteCount: 0
     })
       .then(res => {
         let prevId = res.data.previousEntryId;
         let curEntry = res.data;
 
         API.updateEntry(prevId, {
-          entryToPush: curEntry
+          $push: {
+            nextEntryArray: curEntry
+          }
         });
         // let item = res.data;
         let yourStoryArray = [...this.state.yourStory, curEntry];
@@ -136,13 +139,6 @@ export default class DisplayedEntry extends Component {
         );
   };
 
-  handleUpVote = () => {
-    console.log("Up Vote Clicked");
-  };
-  handleDownVote = () => {
-    console.log("Down Vote Clicked");
-  };
-
   render() {
     const { title, genre, description } = this.state.storyInfo;
     const {
@@ -179,12 +175,11 @@ export default class DisplayedEntry extends Component {
           </div>
           <div className="container">
             {/* does this.state.currentEntry.nextEntryArray exist? */}
+
             <NextEntryArray
               nextEntryArray={currentEntry.nextEntryArray}
               nextEntryClicked={id => this.handleEntryClicked(id)}
               currentId={currentId}
-              upVote={this.handleUpVote}
-              downVote={this.handleDownVote}
             />
           </div>
         </div>

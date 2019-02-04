@@ -9,7 +9,8 @@ const entrySchema = new Schema({
     required: true
   },
   previousEntryId: String,
-  nextEntryArray: Array
+  nextEntryArray: Array,
+  voteCount: Number
 });
 
 const Entry = mongoose.model("Entry", entrySchema);

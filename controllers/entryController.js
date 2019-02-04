@@ -6,7 +6,12 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-
+  find: function(req, res) {
+    db.Entry.find({ _id: req.params.id }).then(dbModel => {
+      console.log("dbModel is ", dbModel);
+      res.json(dbModel);
+    });
+  },
   //working on this findALl
   findAll: function(req, res) {
     console.log("req.params: ", req.params);
@@ -44,7 +49,8 @@ module.exports = {
   update: function(req, res) {
     db.Entry.updateOne(
       { _id: req.params.id },
-      { $push: { nextEntryArray: req.body.entryToPush } },
+      //maybe change this a little to allow me to push again using the update route
+      req.body,
       function(err, raw) {
         if (err) console.log(err);
         console.log("The raw response from Mongo was", raw);
