@@ -15,7 +15,8 @@ export default function NextEntryArray({
         nextEntryArray.map(entry => (
           <EntryComp
             key={entry._id}
-            data={entry}
+            content={entry.content}
+            id={entry._id}
             entryClicked={() => nextEntryClicked(entry._id)}
           />
         ))
