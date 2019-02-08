@@ -1,6 +1,6 @@
 import React from "react";
 import "./MainPageBody.css";
-import img from "./wordwadinvert-f.png";
+import img from "./wordwad-invert2.png";
 
 const MainPageBody = () => {
   return (
