@@ -2,10 +2,9 @@
     position: relative;
     top: 15rem;
     width: 75%;
-    background:#424242;
-    background-image: url(./bg-test.png);
     text-align: center;
     margin: auto;
+    background-color: #ffffff00;
 }
 
 
@@ -13,5 +12,5 @@
 #mainWordWadLogo {
     width: auto;
     height: auto;
-    object-fit: cover;
+    /* object-fit: cover; */
 }
