@@ -3,6 +3,7 @@
     top: 15rem;
     width: 75%;
     background:#424242;
+    background-image: url(./bg-test.png);
     text-align: center;
     margin: auto;
 }
