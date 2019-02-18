@@ -122,6 +122,7 @@ export default class DisplayedEntry extends Component {
 				previousEntryId: item.previousEntryId,
 				yourStory: yourStoryArray
 			});
+			this.displayNextEntries(res.data.nextEntryArray);
 		});
 	};
 
@@ -133,7 +134,7 @@ export default class DisplayedEntry extends Component {
 			? this.setState(
 					{
 						currentId: "",
-						nextEntryArray: [],
+						nextEntriesArray: [],
 						currentEntry: ""
 					},
 					() => {
