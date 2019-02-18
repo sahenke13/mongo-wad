@@ -46,10 +46,6 @@ module.exports = {
 		db.Entry.find({ _id: { $in: parsedArray } })
 			.sort({ voteCount: -1 })
 			.then(dbModel => {
-				console.log(
-					dbModel,
-					"this is the next entries you know what i meant okay"
-				);
 				res.json(dbModel);
 			})
 			.catch(err => res.status(422).json(err));
