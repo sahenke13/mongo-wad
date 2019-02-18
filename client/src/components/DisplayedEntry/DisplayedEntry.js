@@ -17,7 +17,7 @@ export default class DisplayedEntry extends Component {
 		previousEntryId: null,
 		currentId: "",
 		newEntryContent: "",
-		nextEntryArray: []
+		nextEntriesArray: []
 	};
 
 	componentDidMount = () => {
@@ -86,12 +86,21 @@ export default class DisplayedEntry extends Component {
 		});
 	};
 
+	displayNextEntries = nextEntryArray => {
+		API.displayNextEntries(nextEntryArray).then(res => {
+			let nextEntries = res.data;
+			console.log(nextEntries);
+			this.setState({
+				nextEntriesArray: nextEntries
+			});
+		});
+	};
+
 	handleUpdateCurrentEntry = id => {
 		API.displayEntry(id)
 			.then(res => {
 				let selectedSegment = res.data;
 				let yourStoryArray = [...this.state.yourStory, selectedSegment];
-
 				this.setState(() => {
 					return {
 						currentEntry: res.data,
@@ -99,9 +108,11 @@ export default class DisplayedEntry extends Component {
 						yourStory: yourStoryArray
 					};
 				});
+				this.displayNextEntries(res.data.nextEntryArray);
 			})
 			.catch(err => console.log("this is an error", err));
 	};
+
 	handleBackButtonUpdateCurrentEntry = id => {
 		let yourStoryArray = [...this.state.yourStory];
 		API.displayEntry(id).then(res => {
