@@ -37,7 +37,7 @@ export default class EntryComp extends Component {
   };
 
   render() {
-    const { content, id, entryClicked } = this.props;
+    const { content, id, entryClicked, handleSorting } = this.props;
 
     return (
       <div key={id} className="row my-2 p-2 bg-white border ">
@@ -48,11 +48,17 @@ export default class EntryComp extends Component {
           <span className="align-middle float-right px-2 ">
             <i
               className="fas fa-angle-down px-1 pointerGuy"
-              onClick={() => this.handleDownVote(id)}
+              onClick={() => {
+                handleSorting();
+                this.handleDownVote(id);
+              }}
             />
             <i
               className="fas fa-angle-up  px-1 pointerGuy"
-              onClick={() => this.handleUpVote(id)}
+              onClick={() => {
+                handleSorting();
+                this.handleUpVote(id);
+              }}
             />
             <div className="mx-auto text-center">{this.state.voteCount}</div>
           </span>
