@@ -9,200 +9,215 @@ import CurrentEntry from "../CurrentEntry";
 import NextEntryArray from "../NextEntryArray";
 
 export default class DisplayedEntry extends Component {
-  state = {
-    yourStory: [],
-    storyInfo: [],
-    currentEntry: "",
-    firstEntriesArray: [],
-    previousEntryId: null,
-    currentId: "",
-    newEntryContent: ""
-  };
+	state = {
+		yourStory: [],
+		storyInfo: [],
+		currentEntry: "",
+		firstEntriesArray: [],
+		previousEntryId: null,
+		currentId: "",
+		newEntryContent: "",
+		nextEntriesArray: []
+	};
 
-  componentDidMount = () => {
-    this.handleFindStory(this.props.id);
-  };
+	componentDidMount = () => {
+		this.handleFindStory(this.props.id);
+	};
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
-  // maybe do something like this but instead of passing id thru pass thru nextEntryArray in params??
-  handleFindStory = id => {
-    API.getStory(id)
-      .then(res => {
-        this.setState(() => {
-          return { storyInfo: res.data };
-        });
-      })
-      .catch(err => console.log("this is an error", err));
+	handleInputChange = event => {
+		const { name, value } = event.target;
+		this.setState({
+			[name]: value
+		});
+	};
+	// maybe do something like this but instead of passing id thru pass thru nextEntryArray in params??
+	handleFindStory = id => {
+		API.getStory(id)
+			.then(res => {
+				this.setState(() => {
+					return { storyInfo: res.data };
+				});
+			})
+			.catch(err => console.log("this is an error", err));
 
-    API.displayRootEntries(id).then(res => {
-      this.setState({
-        firstEntriesArray: res.data
-      });
-    });
-  };
+		API.displayRootEntries(id).then(res => {
+			this.setState({
+				firstEntriesArray: res.data
+			});
+		});
+	};
 
-  //need to set voteCount to 0?? grab votes??
-  handleNewEntrySubmit = () => {
-    let EntryId = this.state.currentId ? this.state.currentId : null;
-    API.saveEntry({
-      storyId: this.state.storyInfo._id,
-      content: this.state.newEntryContent,
-      previousEntryId: EntryId,
-      voteCount: 0
-    })
-      .then(res => {
-        let prevId = res.data.previousEntryId;
-        let curEntry = res.data;
+	//need to set voteCount to 0?? grab votes??
+	handleNewEntrySubmit = () => {
+		let EntryId = this.state.currentId ? this.state.currentId : null;
+		API.saveEntry({
+			storyId: this.state.storyInfo._id,
+			content: this.state.newEntryContent,
+			previousEntryId: EntryId,
+			voteCount: 0
+		})
+			.then(res => {
+				let prevId = res.data.previousEntryId;
+				let curEntry = res.data;
+				let curId = res.data._id;
 
-        API.updateEntry(prevId, {
-          $push: {
-            nextEntryArray: curEntry
-          }
-        });
-        // let item = res.data;
-        let yourStoryArray = [...this.state.yourStory, curEntry];
+				API.updateEntry(prevId, {
+					$push: {
+						nextEntryArray: curId
+					}
+				});
 
-        this.setState({
-          currentEntry: res.data,
-          previousEntryId: res.data.previousEntryId,
-          currentId: res.data._id,
-          yourStory: yourStoryArray,
-          newEntryContent: ""
-        });
-      })
-      .catch(err => console.log("this is an error", err));
-  };
+				let yourStoryArray = [...this.state.yourStory, curEntry];
 
-  handleEntryClicked = id => {
-    this.setState({ currentId: id }, () => {
-      this.handleUpdateCurrentEntry(id);
-    });
-  };
+				this.setState({
+					currentEntry: curEntry,
+					previousEntryId: prevId,
+					currentId: curId,
+					yourStory: yourStoryArray,
+					newEntryContent: ""
+				});
+			})
+			.catch(err => console.log("this is an error", err));
+	};
 
-  handleUpdateCurrentEntry = id => {
-    API.displayEntry(id)
-      .then(res => {
-        let selectedSegment = res.data;
-        let yourStoryArray = [...this.state.yourStory, selectedSegment];
+	handleEntryClicked = id => {
+		this.setState({ currentId: id, nextEntriesArray: [] }, () => {
+			this.handleUpdateCurrentEntry(id);
+		});
+	};
 
-        this.setState(() => {
-          return {
-            currentEntry: res.data,
-            previousEntryId: res.data.previousEntryId,
-            yourStory: yourStoryArray
-          };
-        });
-      })
-      .catch(err => console.log("this is an error", err));
-  };
-  handleBackButtonUpdateCurrentEntry = id => {
-    let yourStoryArray = [...this.state.yourStory];
-    API.displayEntry(id).then(res => {
-      let item = res.data;
-      this.setState({
-        currentEntry: item,
-        previousEntryId: item.previousEntryId,
-        yourStory: yourStoryArray
-      });
-    });
-  };
+	displayNextEntries = nextEntryArray => {
+		API.displayNextEntries(nextEntryArray).then(res => {
+			let nextEntries = res.data;
 
-  handleBackButtonClicked = () => {
-    let yourStoryArray = this.state.yourStory;
-    yourStoryArray.pop();
+			this.setState({
+				nextEntriesArray: nextEntries
+			});
+		});
+	};
 
-    yourStoryArray.length === 0
-      ? this.setState(
-          {
-            currentId: "",
-            nextEntryArray: [],
-            currentEntry: ""
-          },
-          () => {
-            this.handleFindStory(this.props.id);
-          }
-        )
-      : this.setState(
-          {
-            yourStory: yourStoryArray,
-            currentId: this.state.previousEntryId
-          },
+	handleUpdateCurrentEntry = id => {
+		API.displayEntry(id)
+			.then(res => {
+				let selectedSegment = res.data;
+				let yourStoryArray = [...this.state.yourStory, selectedSegment];
+				this.setState(() => {
+					return {
+						currentEntry: res.data,
+						previousEntryId: res.data.previousEntryId,
+						yourStory: yourStoryArray
+					};
+				});
+				this.displayNextEntries(res.data.nextEntryArray);
+			})
+			.catch(err => console.log("this is an error", err));
+	};
 
-          () => {
-            this.handleBackButtonUpdateCurrentEntry(this.state.previousEntryId);
-          }
-        );
-  };
+	handleBackButtonUpdateCurrentEntry = id => {
+		let yourStoryArray = [...this.state.yourStory];
+		API.displayEntry(id).then(res => {
+			let item = res.data;
+			this.setState({
+				currentEntry: item,
+				previousEntryId: item.previousEntryId,
+				yourStory: yourStoryArray
+			});
+			this.displayNextEntries(res.data.nextEntryArray);
+		});
+	};
 
-  render() {
-    const { title, genre, description } = this.state.storyInfo;
-    const {
-      firstEntriesArray,
-      currentEntry,
-      yourStory,
-      currentId
-    } = this.state;
+	handleBackButtonClicked = () => {
+		let yourStoryArray = this.state.yourStory;
+		yourStoryArray.pop();
 
-    return (
-      <div className="container" id="displayContainer">
-        {/* <StoryHeader title={title} genre={genre} description={description} /> */}
-        <StoryHeader title={title} genre={genre} description={description} />
-        <div className="row">
-          {this.state.currentId === "" ? (
-            <div className="col-lg-6 m-1">
-              <StartingEntries
-                firstEntriesArray={firstEntriesArray}
-                entryClicked={id => this.handleEntryClicked(id)}
-              />
-            </div>
-          ) : (
-            <div className="col-lg-6 m-2">
-              <CurrentEntry
-                content={currentEntry.content}
-                backButton={this.handleBackButtonClicked}
-              />
-            </div>
-          )}
-          {/* add your story information below. Probably through a component that
+		yourStoryArray.length === 0
+			? this.setState(
+					{
+						currentId: "",
+						nextEntriesArray: [],
+						currentEntry: ""
+					},
+					() => {
+						this.handleFindStory(this.props.id);
+					}
+			  )
+			: this.setState(
+					{
+						yourStory: yourStoryArray,
+						currentId: this.state.previousEntryId
+					},
+
+					() => {
+						this.handleBackButtonUpdateCurrentEntry(this.state.previousEntryId);
+					}
+			  );
+	};
+
+	render() {
+		const { title, genre, description } = this.state.storyInfo;
+		const {
+			firstEntriesArray,
+			currentEntry,
+			yourStory,
+			currentId,
+			nextEntriesArray
+		} = this.state;
+
+		return (
+			<div className="container" id="displayContainer">
+				{/* <StoryHeader title={title} genre={genre} description={description} /> */}
+				<StoryHeader title={title} genre={genre} description={description} />
+				<div className="row">
+					{this.state.currentId === "" ? (
+						<div className="col-lg-6 m-1">
+							<StartingEntries
+								firstEntriesArray={firstEntriesArray}
+								entryClicked={id => this.handleEntryClicked(id)}
+							/>
+						</div>
+					) : (
+						<div className="col-lg-6 m-2">
+							<CurrentEntry
+								content={currentEntry.content}
+								backButton={this.handleBackButtonClicked}
+							/>
+						</div>
+					)}
+					{/* add your story information below. Probably through a component that
            we pass props to. */}
-          <div className="col-lg-5 m-2">
-            <YourStory stories={yourStory} />
-          </div>
-          <div className="container">
-            {/* does this.state.currentEntry.nextEntryArray exist? */}
+					<div className="col-lg-5 m-2">
+						<YourStory stories={yourStory} />
+					</div>
+					<div className="container">
+						{/* does this.state.currentEntry.nextEntryArray exist? */}
 
-            <NextEntryArray
-              nextEntryArray={currentEntry.nextEntryArray}
-              nextEntryClicked={id => this.handleEntryClicked(id)}
-              currentId={currentId}
-            />
-          </div>
-        </div>
+						<NextEntryArray
+							nextEntriesArray={nextEntriesArray}
+							nextEntryClicked={id => this.handleEntryClicked(id)}
+							currentId={currentId}
+						/>
+					</div>
+				</div>
 
-        <div className="row" id="btnGuy">
-          <div className="col-md-12">
-            <button
-              type="button"
-              className="btn text-white submitGuy my-2"
-              data-toggle="modal"
-              data-target="#entryModal"
-            >
-              New Entry
-            </button>
-          </div>
-        </div>
+				<div className="row" id="btnGuy">
+					<div className="col-md-12">
+						<button
+							type="button"
+							className="btn text-white submitGuy my-2"
+							data-toggle="modal"
+							data-target="#entryModal"
+						>
+							New Entry
+						</button>
+					</div>
+				</div>
 
-        <NewEntryModal
-          newEntryContent={this.state.newEntryContent}
-          handleInputChange={this.handleInputChange}
-          newEntrySubmit={this.handleNewEntrySubmit}
-        />
-      </div>
-    );
-  }
+				<NewEntryModal
+					newEntryContent={this.state.newEntryContent}
+					handleInputChange={this.handleInputChange}
+					newEntrySubmit={this.handleNewEntrySubmit}
+				/>
+			</div>
+		);
+	}
 }

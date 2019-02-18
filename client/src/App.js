@@ -9,19 +9,18 @@ import CurrentEntryPage from "./pages/CurrentEntryPage";
 import "./App.css";
 
 const App = () => (
-
-  <Router>
-    <div>
-    <NavBar />
-      <Switch>
-        <Route exact path="/" component={MainPage} />
-        <Route exact path="/browseStories" component={BrowseStories} />
-        <Route exact path="/createStory" component={CreateStory} />
-        <Route exact path="/currentEntry/:id" component={CurrentEntryPage} />
-      </Switch>
-    <Footer />
-    </div>
-  </Router>
+	<Router>
+		<div>
+			<NavBar />
+			<Switch>
+				<Route exact path="/" component={MainPage} />
+				<Route exact path="/browseStories" component={BrowseStories} />
+				<Route exact path="/createStory" component={CreateStory} />
+				<Route exact path="/currentEntry/:id" component={CurrentEntryPage} />
+			</Switch>
+			<Footer />
+		</div>
+	</Router>
 );
 
 export default App;
