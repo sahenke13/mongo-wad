@@ -81,7 +81,7 @@ export default class DisplayedEntry extends Component {
 	};
 
 	handleEntryClicked = id => {
-		this.setState({ currentId: id }, () => {
+		this.setState({ currentId: id, nextEntriesArray: [] }, () => {
 			this.handleUpdateCurrentEntry(id);
 		});
 	};
@@ -89,7 +89,7 @@ export default class DisplayedEntry extends Component {
 	displayNextEntries = nextEntryArray => {
 		API.displayNextEntries(nextEntryArray).then(res => {
 			let nextEntries = res.data;
-			console.log(nextEntries);
+
 			this.setState({
 				nextEntriesArray: nextEntries
 			});
