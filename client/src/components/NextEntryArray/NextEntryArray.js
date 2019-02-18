@@ -1,13 +1,13 @@
 import React from "react";
 import EntryComp from "../EntryComp";
 
-export default function NextEntryArray({ nextEntryArray, nextEntryClicked }) {
+export default function NextEntryArray({ nextEntriesArray, nextEntryClicked }) {
 	return (
 		<div>
-			{nextEntryArray ? (
+			{nextEntriesArray ? (
 				// If yes:
 
-				nextEntryArray.map(entry => (
+				nextEntriesArray.map(entry => (
 					<EntryComp
 						key={entry._id}
 						content={entry.content}
@@ -18,7 +18,7 @@ export default function NextEntryArray({ nextEntryArray, nextEntryClicked }) {
 			) : (
 				// If no:
 				<div className="my-2 text-center border bg-white">
-					<h1>Pick a starting point for your story</h1>
+					<h1>Pick a starting entry for your story</h1>
 				</div>
 			)}
 		</div>
