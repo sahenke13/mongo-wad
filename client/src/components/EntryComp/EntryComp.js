@@ -49,15 +49,15 @@ export default class EntryComp extends Component {
             <i
               className="fas fa-angle-down px-1 pointerGuy"
               onClick={() => {
-                handleSorting();
                 this.handleDownVote(id);
+                handleSorting();
               }}
             />
             <i
               className="fas fa-angle-up  px-1 pointerGuy"
               onClick={() => {
-                handleSorting();
                 this.handleUpVote(id);
+                handleSorting();
               }}
             />
             <div className="mx-auto text-center">{this.state.voteCount}</div>
