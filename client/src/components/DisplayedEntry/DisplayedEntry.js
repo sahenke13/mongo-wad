@@ -158,6 +158,7 @@ export default class DisplayedEntry extends Component {
     let nextEntryIdArray = this.state.currentEntry.nextEntryArray;
     API.displayNextEntries(nextEntryIdArray).then(res => {
       let nextEntries = res.data;
+      nextEntries = nextEntries.sort((a, b) => b.voteCount - a.voteCount);
       this.setState({
         nextEntriesArray: nextEntries
       });
