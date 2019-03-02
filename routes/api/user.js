@@ -1,4 +1,9 @@
+const mongoose = require("mongoose");
+const passport = require("passport");
 const router = require("express").Router();
-const userController = require("../../controllers/userController");
+import auth from "../auth";
+const User = mongoose.model("User");
+
+// Passport config stuff/ user routes
 
 module.exports = router;
