@@ -42,7 +42,7 @@ UserSchema.methods.generateJWT = function() {
 	);
 };
 
-// not sure yet, think this is what calls for a current token / session to be created when you log in maybe?
+// Calls for & returns the user object (header) for access validation
 UserSchema.methods.toAuthJSON = function() {
 	return {
 		_id: this._id,

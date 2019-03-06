@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 const passport = require("passport");
 const router = require("express").Router();
-import auth from "../auth";
+const auth = require("../auth");
 const User = mongoose.model("User");
 
 // Passport config stuff/ user routes
 
 // NEW USER / SIGNUP ROUTE (POST)
-// Request object includes username & password
-// Result object includs id, username and token
+// Request includes username & password
+// Result includs id, username and token
 router.post("/", auth.optional, (req, res, next) => {
 	const {
 		body: { user }
@@ -40,8 +40,8 @@ router.post("/", auth.optional, (req, res, next) => {
 
 // LOGIN ROUTE (POST)
 
-// Request object includes username & password
-// Result object will include id, username & token if username & password are matched in DB
+// Request includes username & password
+// Result will include id, username & token if username & password are matched in DB
 router.post("/login", auth.optional, (req, res, next) => {
 	const {
 		body: { user }
@@ -78,7 +78,10 @@ router.post("/login", auth.optional, (req, res, next) => {
 	)(req, res, next);
 });
 
-// GET current route (AUTHENTICATED ROUTES) {
+// GET current route (AUTHENTICATED ROUTES)
+
+// Request has username, password, and JWT TOKEN header
+// Result has the user object with username, password & JWT token - only if it finds a match and token is valid. Else it returns a 400
 router.get("/current", auth.required, (req, res, next) => {
 	const {
 		payload: { id }
